@@ -5,9 +5,10 @@ import Game from './scene/Game';
 
 function App() {
   return (
-  
-      <Game />
-  
+    <div className="center">
+      <Game heightGame={500} widthGame={300} />
+    </div>
+
   );
 }
 
