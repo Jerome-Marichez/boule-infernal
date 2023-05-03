@@ -5,7 +5,7 @@ import Game from './scene/Game';
 function App() {
   return (
     <div className="center">
-      <Game heightGame={825} widthGame={480} />
+      <Game heightGame={500} widthGame={300} />
     </div>
   );
 }
