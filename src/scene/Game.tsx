@@ -20,6 +20,7 @@ export default function Game({ heightGame, widthGame }: Game): JSX.Element {
 	let leftStart: number = (10 / 100) * widthGame;
 	let pixelSize: number = Math.floor((6.67 / 100) * widthGame);
 
+	
 	return (
 		<div className="background" style={{
 			width: `${widthGame}px`,
@@ -27,21 +28,35 @@ export default function Game({ heightGame, widthGame }: Game): JSX.Element {
 			padding: `${topStart}px`,
 		}}>
 			<div className="game">
+	
 				{mapLevel.map((value) => {
-
 					let element: JSX.Element = <></>;
+					const createBlock = (type: "empty" | "green" | "wall" | "goal") => (
+						<Block
+							leftPosition={leftStart}
+							topPosition={topStart}
+							pixelSize={pixelSize}
+							type={type}
+						/>
+					);
 
 					switch (value) {
+
 						case 1:
-							element = <Block leftPosition={leftStart} topPosition={topStart}
-								pixelSize={pixelSize} />
+							element = createBlock("green");
 							break;
+						case 2:
+							element = createBlock("wall");
+							break;
+						case 3:
+							element = createBlock("goal");
+							break;
+
 						default:
-							element = <Block leftPosition={leftStart} topPosition={topStart}
-								pixelSize={pixelSize}
-								empty={true} />
+							element = createBlock("empty");
 							break;
 					}
+
 					leftStart = leftStart + pixelSize;
 
 					if (leftStart - pixelSize > widthGame) {
