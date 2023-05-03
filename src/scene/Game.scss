@@ -1,0 +1,13 @@
+.background {
+	background-color: black;
+	max-width: inherit;
+	width: 300px;
+	height: 500px;
+	padding: 30px;
+
+	.game {
+		background-color: rgb(2, 2, 2);
+		width: inherit;
+		height: inherit;
+	}
+}
