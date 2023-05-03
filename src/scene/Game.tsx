@@ -1,7 +1,7 @@
 
 import { Block } from "../components/Block";
 import "./Game.scss";
-import { mapLevel } from "../utils/mapLevel";
+import { generateMapLevel, defaultMapLevel } from "../utils/mapLevel";
 
 interface Game {
 	heightGame: number;
@@ -9,10 +9,11 @@ interface Game {
 }
 
 /**
- * 
- * @param heightGame Height of the playable screen area
- * @param widthGame Width of the playabable screen area
- * @returns A Game Scene where the Magic Happen
+ * Renders a game scene with a playable screen area of given height and width
+ *
+ * @param heightGame The height of the playable screen area
+ * @param widthGame The width of the playable screen area
+ * @returns The game scene where the magic happens
  */
 export default function Game({ heightGame, widthGame }: Game): JSX.Element {
 
@@ -21,6 +22,8 @@ export default function Game({ heightGame, widthGame }: Game): JSX.Element {
 	let pixelSize: number = Math.floor((6.67 / 100) * widthGame);
 
 	
+	const myMapLevel = generateMapLevel(defaultMapLevel, 7, 7);
+	
 	return (
 		<div className="background" style={{
 			width: `${widthGame}px`,
@@ -28,8 +31,7 @@ export default function Game({ heightGame, widthGame }: Game): JSX.Element {
 			padding: `${topStart}px`,
 		}}>
 			<div className="game">
-	
-				{mapLevel.map((value) => {
+				{myMapLevel.map((value) => {
 					let element: JSX.Element = <></>;
 					const createBlock = (type: "empty" | "green" | "wall" | "goal") => (
 						<Block
@@ -41,7 +43,6 @@ export default function Game({ heightGame, widthGame }: Game): JSX.Element {
 					);
 
 					switch (value) {
-
 						case 1:
 							element = createBlock("green");
 							break;
@@ -51,7 +52,6 @@ export default function Game({ heightGame, widthGame }: Game): JSX.Element {
 						case 3:
 							element = createBlock("goal");
 							break;
-
 						default:
 							element = createBlock("empty");
 							break;

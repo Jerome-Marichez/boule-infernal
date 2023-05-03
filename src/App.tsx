@@ -1,14 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 import Game from './scene/Game';
 
 function App() {
   return (
     <div className="center">
-      <Game heightGame={500} widthGame={300} />
+      <Game heightGame={825} widthGame={480} />
     </div>
-
   );
 }
 

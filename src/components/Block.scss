@@ -1,13 +1,20 @@
 .block {
 	box-sizing: border-box;
 	position: absolute;
-	top: 0px;
+}
+
+.empty {
+	border: none;
 }
 
 .green {
 	border: 2px solid green;
 }
 
-.empty {
-	border: none;
+.wall {
+	background-color: rgb(255, 0, 0);
+}
+
+.goal {
+	background-color: rgb(230, 255, 2);
 }
