@@ -1,5 +1,3 @@
-
-
 /** 0 = empty block */
 /** 1 = green block */
 /** 2 = wall block */
@@ -33,7 +31,6 @@ export const defaultMapLevel: Array<number> = [
 ]
 
 /**
- * 
  * @param defaultMapLevel The default map level with only green blocks and the length of the map.
  * @param numberWall The maximum number of wall blocks to be generated.
  * @param numberGoal The maximum number of goal blocks to be generated.
@@ -42,7 +39,7 @@ export const defaultMapLevel: Array<number> = [
 export function generateMapLevel(defaultMapLevel: Array<number>, numberWall: number, numberGoal: number): Array<number> {
 	const generateMapLevel = defaultMapLevel.map((value) => {
 		// Random a number 
-		let randomNumber = Math.round((Math.random() * 50))
+		const randomNumber = Math.round((Math.random() * 50))
 
 		// Do not replace green blocks in the default map level.
 		if (value === 1 || randomNumber === 1) return value;
@@ -63,4 +60,51 @@ export function generateMapLevel(defaultMapLevel: Array<number>, numberWall: num
 	})
 
 	return generateMapLevel;
+}
+
+/**
+ * @param generateMapLevel The Map Level Generated with all blocks except player
+ * @param blockPerLine The number of lines per row (default is 15)
+ * @return An array representing the generated map with all possible starting player choices.
+ */
+export function addPlayersMap(generateMapLevel: Array<number>, blockPerLine: number): Array<number> {
+
+	let startIndex = blockPerLine;
+
+	while (startIndex < generateMapLevel.length) {
+		const endIndex = startIndex + blockPerLine;
+		let tmpArray = generateMapLevel.slice(startIndex, endIndex).filter(blockValue => blockValue === 0);
+
+		if (tmpArray.length > 12) {
+			generateMapLevel[startIndex + 1] = 4;
+		} else {
+			tmpArray = [];
+		}
+		startIndex = endIndex;
+	}
+
+	return generateMapLevel;
+}
+
+/**
+ * 
+ * @param generateMapLevel The Map Level Generated with all blocks includes players choice
+ * @return An array representing the generated map with only one player starting choice
+ */
+export function onePlayerMap(generateMapLevel: Array<number>): Array<number> {
+	
+	const playersIndex = generateMapLevel.reduce((array, blockValue, index) => {
+		if (blockValue === 4) {
+			array.push(index);
+		}
+		return array;
+	}, [] as number[]);
+
+	const rndPlayerIndex = Math.floor(Math.random() * playersIndex.length);
+	const onePlayerIndex = playersIndex[rndPlayerIndex];
+
+	const newGenerateMapLevel = generateMapLevel.map((value) => value === 4 ? 0 : value);
+	newGenerateMapLevel[onePlayerIndex] = 4;
+
+	return newGenerateMapLevel;
 }
