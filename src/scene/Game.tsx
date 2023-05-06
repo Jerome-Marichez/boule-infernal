@@ -2,11 +2,12 @@
 import { Block } from "../components/Block";
 import "./Game.scss";
 import Player from "../components/Player";
-import { generateMapLevel, defaultMapLevel } from "../utils/mapLevel";
+import { useEffect, useState } from "react";
 
 interface Game {
 	heightGame: number;
 	widthGame: number;
+	mapLevel: Array<number>;
 }
 
 /**
@@ -14,16 +15,41 @@ interface Game {
  *
  * @param heightGame The height of the playable screen area
  * @param widthGame The width of the playable screen area
+ * @param mapLevel The map level already pre-generated
  * @returns The game scene where the magic happens
  */
-export default function Game({ heightGame, widthGame }: Game): JSX.Element {
+export default function Game({ heightGame, widthGame, mapLevel }: Game): JSX.Element {
 
 	let topStart: number = (10 / 100) * widthGame;
 	let leftStart: number = (10 / 100) * widthGame;
 	let pixelSize: number = Math.floor((6.67 / 100) * widthGame);
 
 
-	const myMapLevel = generateMapLevel(defaultMapLevel, 7, 7);
+	const [moveMap, setMoveMap] = useState<Array<Number>>(mapLevel);
+	const [playerDirection, setPlayerDirection] = useState<number>(1);
+
+	// Game Movement Logic without Player Interaction
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			console.log("time 1s");
+			// found player 
+			const playerIndex = moveMap.findIndex((value) => value === 4);
+
+			// detect nextBlock
+			const nextBlock = moveMap[playerIndex + playerDirection * 2];
+			if (nextBlock !== 0 && playerDirection === 1) { setPlayerDirection(-1); }
+			if (nextBlock !== 0 && playerDirection === -1) { setPlayerDirection(1); }
+
+			// set move into Map
+			const newMoveMap = [...moveMap];
+			newMoveMap[playerIndex] = 0;
+			newMoveMap[playerIndex + playerDirection] = 4;
+
+			setMoveMap(newMoveMap);
+		}, 80);
+		return () => clearTimeout(timer);
+	}, [moveMap]);
+	// End Player Movement Logic without Player Interaction
 
 	return (
 		<div className="background" style={{
@@ -32,39 +58,40 @@ export default function Game({ heightGame, widthGame }: Game): JSX.Element {
 			padding: `${topStart}px`,
 		}}>
 			<div className="game">
-				{myMapLevel.map((value) => {
+				{moveMap.map((value) => {
 					let element: JSX.Element = <></>;
 
-					const player = () => (
-						<Player leftPosition={leftStart}
-							topPosition={topStart}
-							pixelSize={pixelSize} />
-					)
+					const createSprite = (type: "empty" | "green" | "wall" | "goal" | "player") => (
+						type === "player" ?
 
-					const createBlock = (type: "empty" | "green" | "wall" | "goal") => (
-						<Block
-							leftPosition={leftStart}
-							topPosition={topStart}
-							pixelSize={pixelSize}
-							type={type}
-						/>
+							<Player
+								leftPosition={leftStart}
+								topPosition={topStart}
+								pixelSize={pixelSize} />
+							:
+							<Block
+								leftPosition={leftStart}
+								topPosition={topStart}
+								pixelSize={pixelSize}
+								type={type}
+							/>
 					);
 
 					switch (value) {
 						case 1:
-							element = createBlock("green");
+							element = createSprite("green");
 							break;
 						case 2:
-							element = createBlock("wall");
+							element = createSprite("wall");
 							break;
 						case 3:
-							element = createBlock("goal");
+							element = createSprite("goal");
 							break;
 						case 4:
-							element = player();
+							element = createSprite("player");
 							break;
 						default:
-							element = createBlock("empty");
+							element = createSprite("empty");
 							break;
 					}
 
