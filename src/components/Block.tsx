@@ -4,7 +4,7 @@ interface Block {
 	topPosition: number,
 	leftPosition: number,
 	pixelSize: number,
-	type?: "empty" | "green" | "wall" | "goal" 
+	type?: "empty" | "green" | "wall" | "goal"
 }
 
 /**
@@ -21,11 +21,14 @@ interface Block {
 
 export function Block({ topPosition, leftPosition, pixelSize, type }: Block): JSX.Element {
 
-	return (<div className={`block ${type}`} style={
-		{
-			height: `${pixelSize}px`,
-			width: `${pixelSize}px`,
-			top: `${topPosition}px`,
-			left: `${leftPosition}px`,
-		}}></div>)
+	return (
+		<div className={`block ${type}`} style={
+			{
+				height: `${pixelSize}px`,
+				width: `${pixelSize}px`,
+				top: `${topPosition}px`,
+				left: `${leftPosition}px`,
+			}}>
+
+		</div>)
 }
