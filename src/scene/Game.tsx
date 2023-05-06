@@ -25,28 +25,46 @@ export default function Game({ heightGame, widthGame, mapLevel }: Game): JSX.Ele
 	let pixelSize: number = Math.floor((6.67 / 100) * widthGame);
 
 
+	const [keyboardPressed, setKeyBoardPressed] = useState("");
 	const [moveMap, setMoveMap] = useState<Array<Number>>(mapLevel);
 	const [playerDirection, setPlayerDirection] = useState<number>(1);
+
+	console.log(keyboardPressed)
 
 	// Game Movement Logic without Player Interaction
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			console.log("time 1s");
-			// found player 
-			const playerIndex = moveMap.findIndex((value) => value === 4);
+			const newMoveMap = [...moveMap];
 
-			// detect nextBlock
+			// found player 
+			let playerIndex = moveMap.findIndex((value) => value === 4);
+
+			// Keyboardpress Vertical Movement
+			if (keyboardPressed === "Up") {
+				console.log("c'est up ")
+				playerIndex += -15;
+				newMoveMap[playerIndex + 15] = 0;
+				setKeyBoardPressed("");
+			}
+			if (keyboardPressed === "Down") {
+				playerIndex += 15;
+				newMoveMap[playerIndex - 15] = 0;
+				setKeyBoardPressed("");
+			}
+			
+			// Horizontal Movement
 			const nextBlock = moveMap[playerIndex + playerDirection * 2];
 			if (nextBlock !== 0 && playerDirection === 1) { setPlayerDirection(-1); }
 			if (nextBlock !== 0 && playerDirection === -1) { setPlayerDirection(1); }
 
 			// set move into Map
-			const newMoveMap = [...moveMap];
 			newMoveMap[playerIndex] = 0;
 			newMoveMap[playerIndex + playerDirection] = 4;
 
+		
 			setMoveMap(newMoveMap);
-		}, 80);
+		}, 50);
 		return () => clearTimeout(timer);
 	}, [moveMap]);
 	// End Player Movement Logic without Player Interaction
@@ -67,7 +85,9 @@ export default function Game({ heightGame, widthGame, mapLevel }: Game): JSX.Ele
 							<Player
 								leftPosition={leftStart}
 								topPosition={topStart}
-								pixelSize={pixelSize} />
+								pixelSize={pixelSize}
+								setKeyboardPressed={setKeyBoardPressed}
+							/>
 							:
 							<Block
 								leftPosition={leftStart}
