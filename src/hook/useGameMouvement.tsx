@@ -47,7 +47,6 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 
 			// Block Hit 
 			if (nextBlock === 0) {
-				newMoveMap[playerIndex + playerDirection * 2] = 0;
 				setBlockHit("empty");
 			}
 
@@ -59,6 +58,7 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 				setBlockHit("wall");
 			}
 			if (nextBlock === 3) {
+				newMoveMap[playerIndex + playerDirection * 2] = 0;
 				setBlockHit("goal");
 			}
 
