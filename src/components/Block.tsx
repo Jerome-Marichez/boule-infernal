@@ -4,7 +4,7 @@ interface Block {
 	topPosition: number,
 	leftPosition: number,
 	pixelSize: number,
-	type?: "empty" | "green" | "wall" | "goal"
+	type: "empty" | "green" | "wall" | "goal"
 }
 
 /**
