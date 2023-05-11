@@ -5,15 +5,16 @@ interface Player {
 	topPosition: number;
 	leftPosition: number;
 	pixelSize: number;
-	setKeyboardPressed: (key: string) => void;
+	setKeyPressed: any;
 }
 
-export default function Player({ topPosition, leftPosition, pixelSize, setKeyboardPressed }: Player): JSX.Element {
+export default function Player({ topPosition, leftPosition, pixelSize, setKeyPressed }: Player): JSX.Element {
 
 	useKey(window, {
-		ArrowUp: (event) => setKeyboardPressed("Up"),
-		ArrowDown: (event) => setKeyboardPressed("Down"),
+		ArrowUp: (event) => setKeyPressed("Up"),
+		ArrowDown: (event) => setKeyPressed("Down"),
 	})
+
 	return (
 		<div className="player" style={
 			{
