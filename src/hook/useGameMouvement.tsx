@@ -29,13 +29,13 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 
 			// Keyboardpress Vertical Movement
 			if (keyPressed === "Up" && playerIndex > blockPerLine * 2) {
-				playerIndex += -15;
+				playerIndex += -blockPerLine;
 				newMoveMap[playerIndex + blockPerLine] = 0;
 				setKeyPressed("");
 			}
 
 			if (keyPressed === "Down" && playerIndex < newMoveMap.length - blockPerLine * 2) {
-				playerIndex += 15;
+				playerIndex += blockPerLine;
 				newMoveMap[playerIndex - blockPerLine] = 0;
 				setKeyPressed("");
 			}
@@ -67,7 +67,7 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 			newMoveMap[playerIndex + playerDirection] = 4;
 			setMoveMap(newMoveMap);
 
-		}, 40);
+		}, speed);
 
 		return () => clearTimeout(timer);
 	}, [moveMap, keyPressed, playerDirection, blockPerLine, blockHit]);
