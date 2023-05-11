@@ -25,11 +25,23 @@ export default function Game({ heightGame, widthGame, mapLevel }: Game): JSX.Ele
 	let topStart: number = (10 / 100) * widthGame;
 	let leftStart: number = (10 / 100) * widthGame;
 	let pixelSize: number = Math.floor((6.67 / 100) * widthGame);
-	
-	const speed: number = 40; 
+
+	const speed: number = 40;
 
 	const [moveMap, blockHit, setKeyPressed] = useGameMovement(mapLevel, 15, speed);
+	const [score, setScore] = useState<number>(0);
+	const [gameOver, setGameOver] = useState<boolean>(false);
 
+	useEffect(() => {
+		if (blockHit === "goal") {
+			setScore(score + 10);
+		}
+		if (blockHit === "wall") {
+			setGameOver(true);
+		}
+	}, [blockHit])
+
+	console.log(score);
 
 	if (moveMap instanceof Array) {
 		return (
