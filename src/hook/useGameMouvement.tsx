@@ -32,14 +32,12 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 				playerIndex += -15;
 				newMoveMap[playerIndex + blockPerLine] = 0;
 				setKeyPressed("");
-				setBlockHit("green");
 			}
 
 			if (keyPressed === "Down" && playerIndex < newMoveMap.length - blockPerLine * 2) {
 				playerIndex += 15;
 				newMoveMap[playerIndex - blockPerLine] = 0;
 				setKeyPressed("");
-				setBlockHit("green");
 			}
 
 			// Horizontal Movement
@@ -47,13 +45,21 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 			if (nextBlock !== 0 && playerDirection === 1) { setPlayerDirection(-1); }
 			if (nextBlock !== 0 && playerDirection === -1) { setPlayerDirection(1); }
 
-			if (nextBlock === 3) {
+			// Block Hit 
+			if (nextBlock === 0) {
 				newMoveMap[playerIndex + playerDirection * 2] = 0;
-				setBlockHit("goal");
+				setBlockHit("empty");
+			}
+
+			if (nextBlock === 1) {
+				setBlockHit("green");
 			}
 
 			if (nextBlock === 2) {
 				setBlockHit("wall");
+			}
+			if (nextBlock === 3) {
+				setBlockHit("goal");
 			}
 
 			// Update moveMap
