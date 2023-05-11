@@ -27,7 +27,7 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 			const newMoveMap = [...moveMap];
 			let playerIndex = moveMap.findIndex((value) => value === 4);
 
-			// Keyboardpress Vertical Movement
+			// Keyboard Vertical Movement
 			if (keyPressed === "Up" && playerIndex > blockPerLine * 2) {
 				playerIndex += -blockPerLine;
 				newMoveMap[playerIndex + blockPerLine] = 0;
@@ -40,29 +40,31 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 				setKeyPressed("");
 			}
 
+			// Horizontal Movement 
+			const horizontalBlock = moveMap[playerIndex + playerDirection * 2];
+			if (horizontalBlock !== 0 && playerDirection === 1) { setPlayerDirection(-1); }
+			if (horizontalBlock !== 0 && playerDirection === -1) { setPlayerDirection(1); }
 
-			// Horizontal Movement
-			const nextBlock = moveMap[playerIndex + playerDirection * 2];
-			if (nextBlock !== 0 && playerDirection === 1) { setPlayerDirection(-1); }
-			if (nextBlock !== 0 && playerDirection === -1) { setPlayerDirection(1); }
+			// Vertical / Horziontal Collision 
+			const verticalBlock = moveMap[playerIndex + playerDirection];
 
-			// Block Hit 
-			if (nextBlock === 0) {
+			if (verticalBlock === 0 || horizontalBlock === 0) {
 				setBlockHit("empty");
 			}
 
-			if (nextBlock === 1) {
+			if (verticalBlock === 1 || horizontalBlock === 1) {
 				setBlockHit("green");
 			}
 
-			if (nextBlock === 2) {
+			if (verticalBlock === 2 || horizontalBlock === 2) {
 				setBlockHit("wall");
 			}
-			if (nextBlock === 3) {
+
+			if (verticalBlock === 3 || horizontalBlock === 3) {
 				newMoveMap[playerIndex + playerDirection * 2] = 0;
 				setBlockHit("goal");
 			}
-
+			
 			// Update moveMap
 			newMoveMap[playerIndex] = 0;
 			newMoveMap[playerIndex + playerDirection] = 4;
@@ -71,7 +73,7 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 		}, speed);
 
 		return () => clearTimeout(timer);
-	}, [moveMap, keyPressed, playerDirection, blockPerLine, blockHit]);
+	}, [moveMap, keyPressed, playerDirection, blockPerLine, blockHit, speed]);
 
 	return [moveMap, blockHit, setKeyPressed];
 
