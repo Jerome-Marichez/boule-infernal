@@ -40,6 +40,7 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 				setKeyPressed("");
 			}
 
+
 			// Horizontal Movement
 			const nextBlock = moveMap[playerIndex + playerDirection * 2];
 			if (nextBlock !== 0 && playerDirection === 1) { setPlayerDirection(-1); }

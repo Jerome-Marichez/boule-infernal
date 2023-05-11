@@ -11,7 +11,7 @@ function App() {
 
   return (
     <div className="center">
-      <Game heightGame={500} widthGame={300} mapLevel={myMapLevel} />
+      <Game heightGame={500} widthGame={300} mapLevel={myMapLevel} speed={40} />
     </div>
   );
 }

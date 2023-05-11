@@ -9,6 +9,7 @@ interface Game {
 	heightGame: number;
 	widthGame: number;
 	mapLevel: Array<number>;
+	speed: number;
 }
 
 /**
@@ -17,16 +18,16 @@ interface Game {
  * @param heightGame The height of the playable screen area
  * @param widthGame The width of the playable screen area
  * @param mapLevel The map level already pre-generated
+ * @param speed The speed of movement. The lower the value, the faster the movement.
  * @returns The game scene where the magic happens
  */
 
-export default function Game({ heightGame, widthGame, mapLevel }: Game): JSX.Element {
+export default function Game({ heightGame, widthGame, mapLevel, speed }: Game): JSX.Element {
 
 	let topStart: number = (10 / 100) * widthGame;
 	let leftStart: number = (10 / 100) * widthGame;
 	let pixelSize: number = Math.floor((6.67 / 100) * widthGame);
 
-	const speed: number = 40;
 
 	const [moveMap, blockHit, setKeyPressed] = useGameMovement(mapLevel, 15, speed);
 	const [score, setScore] = useState<number>(0);
@@ -42,6 +43,7 @@ export default function Game({ heightGame, widthGame, mapLevel }: Game): JSX.Ele
 	}, [blockHit])
 
 	console.log(score);
+	console.log(gameOver);
 
 	if (moveMap instanceof Array) {
 		return (
