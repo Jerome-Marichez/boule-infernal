@@ -15,7 +15,7 @@ interface Player {
  * @param setKeyPressed A callback function to update a state with value "Up | Down"
  * @returns A player component displayed in the game.
  */
-export default function Player({ topPosition, leftPosition, pixelSize, setKeyPressed }: Player): JSX.Element {
+export function Player({ topPosition, leftPosition, pixelSize, setKeyPressed }: Player): JSX.Element {
 
 	useKey(window, {
 		ArrowUp: (event) => setKeyPressed("Up"),

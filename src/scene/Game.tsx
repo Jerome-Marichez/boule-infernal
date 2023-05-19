@@ -1,8 +1,6 @@
-
-import { Block } from "../components/Block";
 import "./Game.scss";
-import Player from "../components/Player";
-import { useEffect, useState } from "react";
+import { Block } from "../components/Block/Block";
+import { Player } from "../components/Player/Player";
 import useGameMovement from "../hook/useGameMouvement";
 import useBlockhit from "../hook/useBlockHit";
 

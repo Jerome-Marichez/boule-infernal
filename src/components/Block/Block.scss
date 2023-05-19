@@ -12,9 +12,11 @@
 }
 
 .wall {
-	background-color: rgb(255, 0, 0);
+	background-image: url("./Wall.jpg");
+	object-fit: cover;
 }
 
 .goal {
-	background-color: rgb(230, 255, 2);
+	background-image: url("./Goal.jpg");
+	object-fit: cover;
 }
