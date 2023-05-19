@@ -4,6 +4,7 @@ import "./Game.scss";
 import Player from "../components/Player";
 import { useEffect, useState } from "react";
 import useGameMovement from "../hook/useGameMouvement";
+import useBlockhit from "../hook/useBlockHit";
 
 interface Game {
 	heightGame: number;
@@ -14,7 +15,6 @@ interface Game {
 
 /**
  * Renders a game scene with a playable screen area of given height and width
- *
  * @param heightGame The height of the playable screen area
  * @param widthGame The width of the playable screen area
  * @param mapLevel The map level already pre-generated
@@ -30,20 +30,9 @@ export default function Game({ heightGame, widthGame, mapLevel, speed }: Game): 
 
 
 	const [moveMap, blockHit, setKeyPressed] = useGameMovement(mapLevel, 15, speed);
-	const [score, setScore] = useState<number>(0);
-	const [gameOver, setGameOver] = useState<boolean>(false);
+	const [score, gameOver] = useBlockhit(blockHit);
 
-	useEffect(() => {
-		if (blockHit === "goal") {
-			setScore(score + 10);
-		}
-		if (blockHit === "wall") {
-			setGameOver(true);
-		}
-	}, [blockHit])
 
-	console.log(score);
-	console.log(gameOver);
 
 	if (moveMap instanceof Array) {
 		return (

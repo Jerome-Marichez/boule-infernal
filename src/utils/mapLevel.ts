@@ -108,3 +108,4 @@ export function onePlayerMap(generateMapLevel: Array<number>): Array<number> {
 
 	return newGenerateMapLevel;
 }
+

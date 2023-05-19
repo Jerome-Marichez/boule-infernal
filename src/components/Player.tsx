@@ -8,6 +8,13 @@ interface Player {
 	setKeyPressed: any;
 }
 
+/**
+ * @param topPosition The top position of the block in absolute pixels on the game display.
+ * @param leftPosition The left position of the block in absolute pixels on the game display.
+ * @param pixelSize The pixel size of one block.
+ * @param setKeyPressed A callback function to update a state with value "Up | Down"
+ * @returns A player component displayed in the game.
+ */
 export default function Player({ topPosition, leftPosition, pixelSize, setKeyPressed }: Player): JSX.Element {
 
 	useKey(window, {

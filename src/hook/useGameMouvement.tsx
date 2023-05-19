@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react';
 
+
 /**
  * @param mapLevel The mapLevel that was previously generated with players & blocks
  * @param blockPerLine The number of blocks per line
  * @param speed The speed of movement. The lower the value, the faster the movement.
  * @returns A array of 3 values [mapLevel, blockHit, setKeyPressed]
  * 
- * mapLevel = The new map 
+ * moveMap = The new map 
  * 
- * blockHit =  The type of block that was hit: "empty | green | wall | goal"
+ * blockHit = The type of block that was hit: "empty | green | wall | goal"
  * 
- * setKeyPressed =  A callback function that accept these key pressed: "Up | "Down" | ""
+ * setKeyPressed = A setter function that accept these key pressed: "Up | "Down" | ""
  * 
  */
-
 export default function useGameMovement(mapLevel: Array<number>, blockPerLine: number, speed: number) {
 
 	const [moveMap, setMoveMap] = useState<Array<number>>(mapLevel);
@@ -64,7 +64,7 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 				newMoveMap[playerIndex + playerDirection * 2] = 0;
 				setBlockHit("goal");
 			}
-			
+
 			// Update moveMap
 			newMoveMap[playerIndex] = 0;
 			newMoveMap[playerIndex + playerDirection] = 4;
@@ -75,6 +75,6 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 		return () => clearTimeout(timer);
 	}, [moveMap, keyPressed, playerDirection, blockPerLine, blockHit, speed]);
 
-	return [moveMap, blockHit, setKeyPressed];
+	return [moveMap, blockHit, setKeyPressed] as const;
 
 }
