@@ -51,7 +51,7 @@ export default function Game({ heightGame, widthGame, mapLevel, speed }: Game): 
 									topPosition={topStart}
 									pixelSize={pixelSize}
 									setKeyPressed={setKeyPressed}
-									blockHit={blockHit}
+									sound={blockHit}
 								/>
 								:
 								<Block

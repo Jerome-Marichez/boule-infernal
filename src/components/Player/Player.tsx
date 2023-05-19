@@ -8,7 +8,7 @@ interface Player {
 	leftPosition: number;
 	pixelSize: number;
 	setKeyPressed: any;
-	blockHit: any
+	sound: "goal" | "wall" | "empty" | "green"
 }
 
 /**
@@ -16,10 +16,10 @@ interface Player {
  * @param leftPosition The left position of the block in absolute pixels on the game display.
  * @param pixelSize The pixel size of one block.
  * @param setKeyPressed A callback function to update a state with value "Up | Down"
- * @param blockHit A block collision if any "empty" | "green" | "wall" | "goal"
+ * @param sound  A .wav to be play if available in this folder component
  * @returns A player component displayed in the game.
  */
-export function Player({ topPosition, leftPosition, pixelSize, setKeyPressed, blockHit }: Player): JSX.Element {
+export function Player({ topPosition, leftPosition, pixelSize, setKeyPressed, sound }: Player): JSX.Element {
 
 	useKey(window, {
 		ArrowUp: (event) => setKeyPressed("Up"),
@@ -27,12 +27,15 @@ export function Player({ topPosition, leftPosition, pixelSize, setKeyPressed, bl
 	})
 
 	useEffect(() => {
-		if (blockHit === "goal" || blockHit === "wall") {
-			const sound = blockHit === "goal" ? require("./goal.wav") : require("./gameover.wav");
-			const audio = new Audio(sound);
+		try {
+			const audio = new Audio(require(`./${sound}.wav`));
 			audio.play();
 		}
-	}, [blockHit])
+		catch (e) {
+
+		}
+	}, [sound])
+
 
 	return (
 		<div className="player" style={
