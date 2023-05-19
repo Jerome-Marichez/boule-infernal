@@ -2,7 +2,7 @@ import "./Game.scss";
 import { Block } from "../components/Block/Block";
 import { Player } from "../components/Player/Player";
 import useGameMovement from "../hook/useGameMouvement";
-import useBlockhit from "../hook/useBlockHit";
+import useScore from "../hook/useScore";
 
 interface Game {
 	heightGame: number;
@@ -28,10 +28,9 @@ export default function Game({ heightGame, widthGame, mapLevel, speed }: Game): 
 
 
 	const [moveMap, blockHit, setKeyPressed] = useGameMovement(mapLevel, 15, speed);
-	const [score, gameOver] = useBlockhit(blockHit);
+	const [score, gameOver] = useScore(blockHit);
 
-
-
+	
 	if (moveMap instanceof Array) {
 		return (
 
@@ -52,6 +51,7 @@ export default function Game({ heightGame, widthGame, mapLevel, speed }: Game): 
 									topPosition={topStart}
 									pixelSize={pixelSize}
 									setKeyPressed={setKeyPressed}
+									blockHit={blockHit}
 								/>
 								:
 								<Block

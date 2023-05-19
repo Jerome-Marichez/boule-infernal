@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
  * 
  * gameOver = A state with a gameOver boolean set to True if gameOver
  */
-export default function useBlockhit(block: "empty" | "green" | "wall" | "goal") {
+export default function useScore(block: "empty" | "green" | "wall" | "goal") {
 
 	const [score, setScore] = useState(0);
 	const [gameOver, setGameOver] = useState(false);
