@@ -77,7 +77,7 @@ export class mapGenerator {
 				.slice(startIndex, endIndex)
 				.filter((blockValue) => blockValue === 0);
 
-			if (tmpArray.length > 12) {
+			if (tmpArray.length > blockPerLine - 3) {
 				this.level[startIndex + 1] = 4;
 			} else {
 				tmpArray = [];
