@@ -1,17 +1,19 @@
 import React from 'react';
 import './App.scss';
-import { generateMapLevel, defaultMapLevel, addPlayersMap, onePlayerMap } from "./utils/mapLevel"
+import { defaultMapLevel } from "./utils/mapData"
+import { mapGenerator } from './utils/mapGenerator';
 import Game from './scene/Game';
 
 function App() {
 
-  let myMapLevel = generateMapLevel(defaultMapLevel, 7, 7);
-  myMapLevel = addPlayersMap(myMapLevel, 15);
-  myMapLevel = onePlayerMap(myMapLevel);
+  let myMap = new mapGenerator(defaultMapLevel, 7, 7);
+  myMap.addPlayersMap(15);
+  myMap.onePlayerMap();
+
 
   return (
     <div className="center">
-      <Game heightGame={500} widthGame={300} mapLevel={myMapLevel} speed={40} />
+      <Game heightGame={500} widthGame={300} mapLevel={myMap.level} speed={40} />
     </div>
   );
 }
