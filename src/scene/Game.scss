@@ -3,6 +3,26 @@
 	max-width: inherit;
 	position: absolute;
 
+	&.dead {
+		animation: dead 0.25s forwards 8 alternate;
+	}
+
+	@keyframes dead {
+		0% {
+			background-color: rgb(122, 9, 252);
+		}
+
+		50% {
+			background-color: rgb(255, 0, 0);
+		}
+
+		100% {
+			background-color: white;
+		}
+
+
+	}
+
 	.game {
 		background-color: rgb(2, 2, 2);
 		width: inherit;

@@ -3,6 +3,7 @@ import { Block } from "../components/Block/Block";
 import { Player } from "../components/Player/Player";
 import useGameMovement from "../hook/useGameMouvement";
 import useScore from "../hook/useScore";
+import { useEffect } from "react";
 
 interface Game {
 	heightGame: number;
@@ -26,15 +27,17 @@ export default function Game({ heightGame, widthGame, mapLevel, speed }: Game): 
 	let leftStart: number = (10 / 100) * widthGame;
 	let pixelSize: number = Math.floor((6.67 / 100) * widthGame);
 
-
-	const [moveMap, blockHit, setKeyPressed] = useGameMovement(mapLevel, 15, speed);
+	const [moveMap, blockHit, setKeyPressed, setStop] = useGameMovement(mapLevel, 15, speed);
 	const [score, gameOver] = useScore(blockHit);
 
-	
+	useEffect(() => {
+		setStop(gameOver);
+	}, [gameOver])
+
+
 	if (moveMap instanceof Array) {
 		return (
-
-			<div className="background" style={{
+			<div className={gameOver ? "background dead" : "background"} style={{
 				width: `${widthGame}px`,
 				height: `${heightGame}px`,
 				padding: `${topStart}px`,
@@ -60,6 +63,7 @@ export default function Game({ heightGame, widthGame, mapLevel, speed }: Game): 
 									pixelSize={pixelSize}
 									type={type}
 								/>
+
 						);
 
 						switch (value) {
@@ -95,7 +99,7 @@ export default function Game({ heightGame, widthGame, mapLevel, speed }: Game): 
 		)
 	}
 	else {
-		return <div></div>;
+		return <></>;
 	}
 
 }

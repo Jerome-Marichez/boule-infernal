@@ -14,7 +14,7 @@ export default function useScore(block: "empty" | "green" | "wall" | "goal") {
 	const [gameOver, setGameOver] = useState(false);
 
 	useEffect(() => {
-		if (block === "goal") {
+		if (block === "goal" && gameOver !== true) {
 			setScore(score + 10);
 		}
 		if (block === "wall") {
