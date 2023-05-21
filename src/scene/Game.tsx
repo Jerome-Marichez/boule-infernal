@@ -4,6 +4,7 @@ import { Player } from "../components/Player/Player";
 import useGameMovement from "../hook/useGameMouvement";
 import useScore from "../hook/useScore";
 import { useEffect } from "react";
+import useLoopMusic from "../hook/useLoopMusic";
 
 interface Game {
 	heightGame: number;
@@ -23,83 +24,86 @@ interface Game {
 
 export default function Game({ heightGame, widthGame, mapLevel, speed }: Game): JSX.Element {
 
+	const [moveMap, blockHit, setKeyPressed, keyPressed, setStop] = useGameMovement(mapLevel, 15, speed);
+	const [score, gameOver] = useScore(blockHit);
+
+	// Music Game Scene Theme in Loop
+	const audio: any = new Audio(require(`./theme.wav`));
+	useLoopMusic(keyPressed, audio, 42000);
+
+	// Stop Game Mouvement if GameOver
+	useEffect(() => {
+		setStop(gameOver);
+	}, [gameOver, setStop])
+
+	// Draw the map
 	let topStart: number = (10 / 100) * widthGame;
 	let leftStart: number = (10 / 100) * widthGame;
 	let pixelSize: number = Math.floor((6.67 / 100) * widthGame);
 
-	const [moveMap, blockHit, setKeyPressed, setStop] = useGameMovement(mapLevel, 15, speed);
-	const [score, gameOver] = useScore(blockHit);
+	return (
+		<div className={gameOver ? "background dead" : "background"} style={{
+			width: `${widthGame}px`,
+			height: `${heightGame}px`,
+			padding: `${topStart}px`,
+		}}>
+			<div className="game">
+				{moveMap.map((value, index) => {
+					let element: JSX.Element = <></>;
 
-	useEffect(() => {
-		setStop(gameOver);
-	}, [gameOver])
+					const createSprite = (type: "empty" | "green" | "wall" | "goal" | "player") => (
+						type === "player" ?
 
+							<Player
+								leftPosition={leftStart}
+								topPosition={topStart}
+								pixelSize={pixelSize}
+								setKeyPressed={setKeyPressed}
+								sound={blockHit}
+								key={index}
+							/>
+							:
+							<Block
+								leftPosition={leftStart}
+								topPosition={topStart}
+								pixelSize={pixelSize}
+								type={type}
+								key={index}
+							/>
 
-	if (moveMap instanceof Array) {
-		return (
-			<div className={gameOver ? "background dead" : "background"} style={{
-				width: `${widthGame}px`,
-				height: `${heightGame}px`,
-				padding: `${topStart}px`,
-			}}>
-				<div className="game">
-					{moveMap.map((value) => {
-						let element: JSX.Element = <></>;
+					);
 
-						const createSprite = (type: "empty" | "green" | "wall" | "goal" | "player") => (
-							type === "player" ?
+					switch (value) {
+						case 1:
+							element = createSprite("green");
+							break;
+						case 2:
+							element = createSprite("wall");
+							break;
+						case 3:
+							element = createSprite("goal");
+							break;
+						case 4:
+							element = createSprite("player");
+							break;
+						default:
+							element = createSprite("empty");
+							break;
+					}
 
-								<Player
-									leftPosition={leftStart}
-									topPosition={topStart}
-									pixelSize={pixelSize}
-									setKeyPressed={setKeyPressed}
-									sound={blockHit}
-								/>
-								:
-								<Block
-									leftPosition={leftStart}
-									topPosition={topStart}
-									pixelSize={pixelSize}
-									type={type}
-								/>
+					leftStart = leftStart + pixelSize;
 
-						);
+					if (leftStart - pixelSize > widthGame) {
+						leftStart = (10 / 100) * widthGame;
+						topStart = topStart + pixelSize;
+					}
 
-						switch (value) {
-							case 1:
-								element = createSprite("green");
-								break;
-							case 2:
-								element = createSprite("wall");
-								break;
-							case 3:
-								element = createSprite("goal");
-								break;
-							case 4:
-								element = createSprite("player");
-								break;
-							default:
-								element = createSprite("empty");
-								break;
-						}
+					return element;
+				})}
 
-						leftStart = leftStart + pixelSize;
-
-						if (leftStart - pixelSize > widthGame) {
-							leftStart = (10 / 100) * widthGame;
-							topStart = topStart + pixelSize;
-						}
-
-						return element;
-					})}
-
-				</div>
 			</div>
-		)
-	}
-	else {
-		return <></>;
-	}
+		</div>
+	)
+	// End Drawn the map
 
 }

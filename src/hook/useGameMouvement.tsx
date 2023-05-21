@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react';
 
-
 /**
  * @param mapLevel The mapLevel that was previously generated with players & blocks
  * @param blockPerLine The number of blocks per line
  * @param speed The speed of movement. The lower the value, the faster the movement.
- * @returns A Hook with 4 values [mapLevel, blockHit, setKeyPressed, setStop]
+ * @returns A Hook with 5 values [mapLevel, blockHit, setKeyPressed, keyPressed, setStop]
  * 
  * moveMap = The new map 
  * 
  * blockHit = The type of block that was hit: "empty | green | wall | goal"
  * 
  * setKeyPressed = A setter function that accept these key pressed: "Up | "Down" | ""
+ * 
+ * keyPressed = The key name which will be empty after the move done can be used to know if a move has been done by the player
  * 
  * setStop = A setter function that accept true or false to stop the GameMouvement Hook
  */
@@ -81,6 +82,6 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 
 	}, [moveMap, keyPressed, playerDirection, blockPerLine, blockHit, speed, stop]);
 
-	return [moveMap, blockHit, setKeyPressed, setStop] as const;
+	return [moveMap, blockHit, setKeyPressed, keyPressed, setStop] as const;
 
 }
