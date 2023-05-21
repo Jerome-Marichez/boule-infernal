@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
  * @param mapLevel The mapLevel that was previously generated with players & blocks
  * @param blockPerLine The number of blocks per line
  * @param speed The speed of movement. The lower the value, the faster the movement.
- * @returns A array of 3 values [mapLevel, blockHit, setKeyPressed]
+ * @returns A Hook with 4 values [mapLevel, blockHit, setKeyPressed, setStop]
  * 
  * moveMap = The new map 
  * 
@@ -13,6 +13,7 @@ import { useState, useEffect } from 'react';
  * 
  * setKeyPressed = A setter function that accept these key pressed: "Up | "Down" | ""
  * 
+ * setStop = A setter function that accept true or false to stop the GameMouvement Hook
  */
 export default function useGameMovement(mapLevel: Array<number>, blockPerLine: number, speed: number) {
 
@@ -20,61 +21,66 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 	const [keyPressed, setKeyPressed] = useState<"Up" | "Down" | "">("");
 	const [playerDirection, setPlayerDirection] = useState<number>(1);
 	const [blockHit, setBlockHit] = useState<"empty" | "green" | "wall" | "goal">("empty");
+	const [stop, setStop] = useState(false);
+
 
 	useEffect(() => {
+
 		const timer = setTimeout(() => {
-			// Copy moveMap and find player index
-			const newMoveMap = [...moveMap];
-			let playerIndex = moveMap.findIndex((value) => value === 4);
+			if (!stop) {
+				// Copy moveMap and find player index
+				const newMoveMap = [...moveMap];
+				let playerIndex = moveMap.findIndex((value) => value === 4);
 
-			// Keyboard Vertical Movement
-			if (keyPressed === "Up" && playerIndex > blockPerLine * 2) {
-				playerIndex += -blockPerLine;
-				newMoveMap[playerIndex + blockPerLine] = 0;
-				setKeyPressed("");
+				// Keyboard Vertical Movement
+				if (keyPressed === "Up" && playerIndex > blockPerLine * 2) {
+					playerIndex += -blockPerLine;
+					newMoveMap[playerIndex + blockPerLine] = 0;
+					setKeyPressed("");
+				}
+
+				if (keyPressed === "Down" && playerIndex < newMoveMap.length - blockPerLine * 2) {
+					playerIndex += blockPerLine;
+					newMoveMap[playerIndex - blockPerLine] = 0;
+					setKeyPressed("");
+				}
+
+				// Horizontal Movement 
+				const horizontalBlock = moveMap[playerIndex + playerDirection * 2];
+				if (horizontalBlock !== 0 && playerDirection === 1) { setPlayerDirection(-1); }
+				if (horizontalBlock !== 0 && playerDirection === -1) { setPlayerDirection(1); }
+
+				// Vertical / Horziontal Collision 
+				const verticalBlock = moveMap[playerIndex + playerDirection];
+
+				if (verticalBlock === 0 || horizontalBlock === 0) {
+					setBlockHit("empty");
+				}
+
+				if (verticalBlock === 1 || horizontalBlock === 1) {
+					setBlockHit("green");
+				}
+
+				if (verticalBlock === 2 || horizontalBlock === 2) {
+					setBlockHit("wall");
+				}
+
+				if (verticalBlock === 3 || horizontalBlock === 3) {
+					newMoveMap[playerIndex + playerDirection * 2] = 0;
+					setBlockHit("goal");
+				}
+
+				// Update moveMap
+				newMoveMap[playerIndex] = 0;
+				newMoveMap[playerIndex + playerDirection] = 4;
+				setMoveMap(newMoveMap);
 			}
-
-			if (keyPressed === "Down" && playerIndex < newMoveMap.length - blockPerLine * 2) {
-				playerIndex += blockPerLine;
-				newMoveMap[playerIndex - blockPerLine] = 0;
-				setKeyPressed("");
-			}
-
-			// Horizontal Movement 
-			const horizontalBlock = moveMap[playerIndex + playerDirection * 2];
-			if (horizontalBlock !== 0 && playerDirection === 1) { setPlayerDirection(-1); }
-			if (horizontalBlock !== 0 && playerDirection === -1) { setPlayerDirection(1); }
-
-			// Vertical / Horziontal Collision 
-			const verticalBlock = moveMap[playerIndex + playerDirection];
-
-			if (verticalBlock === 0 || horizontalBlock === 0) {
-				setBlockHit("empty");
-			}
-
-			if (verticalBlock === 1 || horizontalBlock === 1) {
-				setBlockHit("green");
-			}
-
-			if (verticalBlock === 2 || horizontalBlock === 2) {
-				setBlockHit("wall");
-			}
-
-			if (verticalBlock === 3 || horizontalBlock === 3) {
-				newMoveMap[playerIndex + playerDirection * 2] = 0;
-				setBlockHit("goal");
-			}
-
-			// Update moveMap
-			newMoveMap[playerIndex] = 0;
-			newMoveMap[playerIndex + playerDirection] = 4;
-			setMoveMap(newMoveMap);
-
 		}, speed);
 
 		return () => clearTimeout(timer);
-	}, [moveMap, keyPressed, playerDirection, blockPerLine, blockHit, speed]);
 
-	return [moveMap, blockHit, setKeyPressed] as const;
+	}, [moveMap, keyPressed, playerDirection, blockPerLine, blockHit, speed, stop]);
+
+	return [moveMap, blockHit, setKeyPressed, setStop] as const;
 
 }
