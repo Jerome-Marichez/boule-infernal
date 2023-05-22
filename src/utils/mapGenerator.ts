@@ -13,13 +13,13 @@ export class mapGenerator {
 	 *
 	 * level = The map level
 	 *
-	 * numberMaxWall: The maximum number of wall blocks.
+	 * numberMaxWall: The maximum number of wall blocks that can be generated.
 	 *
-	 * numberMaxGoal: The maximum number of goal blocks.
+	 * numberMaxGoal: The maximum number of goal blocks that can be generated.
 	 *
-	 * numberWall = The number of wall in the level
+	 * numberWall = The number of wall truly in the level
 	 *
-	 * numberGoal = The number of goal in the level
+	 * numberGoal = The number of goal truly in the level
 	 *
 	 *
 	 */

@@ -1,21 +1,24 @@
-import React from 'react';
 import './App.scss';
 import { defaultMapLevel } from "./utils/mapData"
 import { mapGenerator } from './utils/mapGenerator';
+import { useSelector } from 'react-redux';
+import { rootState } from './redux/store';
 import Game from './scene/Game';
 
 function App() {
+
+  const speed = useSelector((state: rootState) => state.gameState.speed)
 
   let myMap = new mapGenerator(defaultMapLevel, 7, 7);
   myMap.addPlayersMap(15);
   myMap.onePlayerMap();
 
-
   return (
     <div className="center">
-      <Game heightGame={500} widthGame={300} mapLevel={myMap.level} speed={40} />
+      <Game heightGame={500} widthGame={300} map={myMap} speed={speed} key={speed} />
     </div>
   );
 }
+
 
 export default App;
