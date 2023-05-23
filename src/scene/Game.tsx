@@ -4,8 +4,6 @@ import { Player } from "../components/Player/Player";
 import useGameMovement from "../hook/useGameMouvement";
 import useGameState from "../hook/useGameState";
 import { useEffect } from "react";
-import useLoopMusic from "../hook/useLoopMusic";
-
 
 interface Game {
 	heightGame: number;
@@ -25,18 +23,15 @@ interface Game {
 
 export default function Game({ heightGame, widthGame, map, speed }: Game): JSX.Element {
 
-	const [moveMap, blockHit, setKeyPressed, keyPressed, setStop] = useGameMovement(map.level, 15, speed);
+	const [moveMap, blockHit, setKeyPressed, setStop] = useGameMovement(map.level, 15, speed);
 	const [score, gameOver] = useGameState(blockHit, map.numberGoal);
-
-	// Music Game Scene Theme in Loop
-	const audio: any = new Audio(require(`./theme.wav`));
-	useLoopMusic(keyPressed, audio, 42000);
 
 	// Stop Game Mouvement if GameOver
 	useEffect(() => {
 		setStop(gameOver);
 	}, [gameOver, setStop])
 
+	
 	// Draw the map
 	let topStart: number = (10 / 100) * widthGame;
 	let leftStart: number = (10 / 100) * widthGame;
