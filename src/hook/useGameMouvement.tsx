@@ -4,16 +4,14 @@ import { useState, useEffect } from 'react';
  * @param mapLevel The mapLevel that was previously generated with players & blocks
  * @param blockPerLine The number of blocks per line
  * @param speed The speed of movement. The lower the value, the faster the movement.
- * @returns A Hook with 5 values [mapLevel, blockHit, setKeyPressed, keyPressed, setStop]
+ * @returns A Hook with 4 values [mapLevel, blockHit, setKeyPressed, keyPressed, setStop]
  * 
  * moveMap = The new map 
  * 
  * blockHit = The type of block that was hit: "empty | green | wall | goal"
  * 
  * setKeyPressed = A setter function that accept these key pressed: "Up | "Down" | ""
- * 
- * keyPressed = The key name which will be empty after the move done can be used to know if a move has been done by the player
- * 
+ *  
  * setStop = A setter function that accept true or false to stop the GameMouvement Hook
  */
 export default function useGameMovement(mapLevel: Array<number>, blockPerLine: number, speed: number) {
@@ -37,13 +35,11 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 				if (keyPressed === "Up" && playerIndex > blockPerLine * 2) {
 					playerIndex += -blockPerLine;
 					newMoveMap[playerIndex + blockPerLine] = 0;
-					setKeyPressed("");
 				}
 
 				if (keyPressed === "Down" && playerIndex < newMoveMap.length - blockPerLine * 2) {
 					playerIndex += blockPerLine;
 					newMoveMap[playerIndex - blockPerLine] = 0;
-					setKeyPressed("");
 				}
 
 				// Horizontal Movement 
@@ -53,7 +49,7 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 
 				// Vertical / Horziontal Collision 
 				const verticalBlock = moveMap[playerIndex + playerDirection];
-				const verticalBlock2 = moveMap[playerIndex]; 
+				const verticalBlock2 = moveMap[playerIndex];
 				if (verticalBlock === 0 || horizontalBlock === 0 || verticalBlock2 === 0) {
 					setBlockHit("empty");
 				}
@@ -71,6 +67,7 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 					setBlockHit("goal");
 				}
 
+				setKeyPressed("");
 				// Update moveMap
 				newMoveMap[playerIndex] = 0;
 				newMoveMap[playerIndex + playerDirection] = 4;
@@ -82,6 +79,6 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 
 	}, [moveMap, keyPressed, playerDirection, blockPerLine, blockHit, speed, stop]);
 
-	return [moveMap, blockHit, setKeyPressed, keyPressed, setStop] as const;
+	return [moveMap, blockHit, setKeyPressed, setStop] as const;
 
 }
