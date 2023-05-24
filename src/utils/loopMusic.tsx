@@ -1,4 +1,3 @@
-
 /**
  * A function which allow to loop a music
  * @param music The audio to be looped.
@@ -8,19 +7,6 @@
  */
 export function loopMusic(music: HTMLAudioElement) {
 
-	const audio = () => {
-		try {
-			music.addEventListener('ended', function () {
-				music.currentTime = 0;
-				music.play();
-			}, false);
-			music.play();
-		}
-		catch (e) {
 
-		}
-	}
-
-	audio();
-	
 }
+
