@@ -1,6 +1,6 @@
 import "./Block.scss";
 
-interface Block {
+interface BlockProps {
 	topPosition: number,
 	leftPosition: number,
 	pixelSize: number,
@@ -19,7 +19,7 @@ interface Block {
  * @returns A block element displayed in the game.
  */
 
-export function Block({ topPosition, leftPosition, pixelSize, type }: Block): JSX.Element {
+export function Block({ topPosition, leftPosition, pixelSize, type }: BlockProps): JSX.Element {
 
 	return (
 		<div className={`block ${type}`} style={

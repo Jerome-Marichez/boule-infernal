@@ -1,14 +1,17 @@
 import "./Game.scss";
-import { Block } from "../components/Block/Block";
-import { Player } from "../components/Player/Player";
+import { Block, Player } from '../components';
 import useGameMovement from "../hook/useGameMouvement";
 import useGameState from "../hook/useGameState";
 import { useEffect } from "react";
 
-interface Game {
+interface GameProps {
 	heightGame: number;
 	widthGame: number;
-	map: any;
+	map: {
+		level: Array<number>;
+		numberWall: number;
+		numberGoal: number;
+	};
 	speed: number;
 }
 
@@ -21,7 +24,7 @@ interface Game {
  * @returns The game scene where the magic happens
  */
 
-export default function Game({ heightGame, widthGame, map, speed }: Game): JSX.Element {
+export default function Game({ heightGame, widthGame, map, speed }: GameProps): JSX.Element {
 
 	const [moveMap, blockHit, setKeyPressed, setStop] = useGameMovement(map.level, 15, speed);
 	const [score, gameOver] = useGameState(blockHit, map.numberGoal);
@@ -31,7 +34,7 @@ export default function Game({ heightGame, widthGame, map, speed }: Game): JSX.E
 		setStop(gameOver);
 	}, [gameOver, setStop])
 
-	
+
 	// Draw the map
 	let topStart: number = (10 / 100) * widthGame;
 	let leftStart: number = (10 / 100) * widthGame;
@@ -43,8 +46,9 @@ export default function Game({ heightGame, widthGame, map, speed }: Game): JSX.E
 			height: `${heightGame}px`,
 			padding: `${topStart}px`,
 		}}>
+
 			<div className="game">
-				{moveMap.map((value, index) => {
+				{moveMap.map((value, index): JSX.Element => {
 					let element: JSX.Element = <></>;
 
 					const createSprite = (type: "empty" | "green" | "wall" | "goal" | "player") => (
@@ -96,8 +100,8 @@ export default function Game({ heightGame, widthGame, map, speed }: Game): JSX.E
 
 					return element;
 				})}
-
 			</div>
+
 		</div>
 	)
 	// End Drawn the map

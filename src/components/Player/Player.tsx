@@ -3,7 +3,7 @@ import useKey from '@accessible/use-key'
 import { useEffect } from "react";
 
 
-interface Player {
+interface PlayerProps {
 	topPosition: number;
 	leftPosition: number;
 	pixelSize: number;
@@ -19,8 +19,10 @@ interface Player {
  * @param sound  A .wav to be play if available in this folder component
  * @returns A player component displayed in the game.
  */
-export function Player({ topPosition, leftPosition, pixelSize, setKeyPressed, sound }: Player): JSX.Element {
+export function Player(props: PlayerProps): JSX.Element {
 
+	const { topPosition, leftPosition, pixelSize, setKeyPressed, sound } = props;
+	
 	useKey(window, {
 		ArrowUp: (event) => setKeyPressed("Up"),
 		ArrowDown: (event) => setKeyPressed("Down"),
