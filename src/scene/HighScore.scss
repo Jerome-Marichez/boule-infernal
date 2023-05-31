@@ -1,0 +1,57 @@
+.highscore {
+	$bg_color_highscore: black;
+	$color1: white;
+	$color2: yellow;
+
+	display: flex;
+	flex-direction: column;
+	background-color: $bg_color_highscore;
+	color: $color1;
+	font-size: 30px;
+
+	.one_line {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between
+	}
+
+	.group {
+		display: flex;
+		flex-direction: row;
+	}
+
+	@mixin changeColorInfinite($fromColor, $toColor) {
+		animation: color-#{$fromColor}-#{$toColor} 0.75s infinite alternate;
+
+		@keyframes color-#{$fromColor}-#{$toColor} {
+			from {
+				color: $fromColor;
+			}
+
+			to {
+				color: $toColor;
+			}
+		}
+	}
+
+	.scores {
+		display: flex;
+		min-width: 200px;
+		justify-content: space-between;
+
+		.score, .name {
+			display: flex;
+			justify-content: space-between;
+		}
+	}
+
+	.color1 {
+		color: $color1;
+		@include changeColorInfinite($color1, $color2);
+	}
+
+	.color2 {
+		color: $color2;
+		@include changeColorInfinite($color2, $color1);
+	}
+}

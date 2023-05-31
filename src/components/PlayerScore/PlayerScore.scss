@@ -1,0 +1,36 @@
+.player_score {
+	display: flex;
+	min-width: 200px;
+	justify-content: space-between;
+
+	.score,
+	.name {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.name {
+		color: white;
+		border: none;
+		outline: none;
+		background-color: black;
+		max-width: 150px;
+		font-size: 30px;
+		padding: 0;
+
+		&.animate {
+			animation: whiteToGrey 0.75s infinite alternate;
+		}
+
+		@keyframes whiteToGrey {
+			0% {
+				color: white;
+			}
+
+			100% {
+				color: grey;
+			}
+		}
+	}
+
+}

@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { rootState } from './redux/store';
 import { useState } from 'react';
 import Game from './scene/Game';
+import HighScore from './scene/HighScore';
 import MusicLoop from './components/MusicLoop/MusicLoop';
 
 function App() {
@@ -31,7 +32,11 @@ function App() {
     <div className="center">
       <MusicLoop music={"gameover"} mute={gameOver ? false : true} />
       <MusicLoop music={"theme"} mute={gameOver ? true : false} />
-      <Game heightGame={500} widthGame={300} map={myMap} speed={speed} key={speed} />
+      {displayHighScore ?
+        <HighScore />
+        :
+        <Game heightGame={500} widthGame={300} map={myMap} speed={speed} key={speed} />
+      }
     </div>
   );
 }
