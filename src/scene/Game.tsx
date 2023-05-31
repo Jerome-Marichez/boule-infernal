@@ -41,13 +41,13 @@ export default function Game({ heightGame, widthGame, map, speed }: GameProps): 
 	let pixelSize: number = Math.floor((6.67 / 100) * widthGame);
 
 	return (
-		<div className={gameOver ? "background dead" : "background"} style={{
+		<div className={gameOver ? "game dead" : "game"} style={{
 			width: `${widthGame}px`,
 			height: `${heightGame}px`,
 			padding: `${topStart}px`,
 		}}>
 
-			<div className="game">
+			<div className="background">
 				{moveMap.map((value, index): JSX.Element => {
 					let element: JSX.Element = <></>;
 
