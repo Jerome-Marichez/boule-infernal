@@ -1,6 +1,12 @@
 body {
+  font-family: font;
   margin: 0;
   background-color: black;
+}
+
+@font-face {
+  font-family: font;
+  src: url(font.ttf);
 }
 
 .center {
