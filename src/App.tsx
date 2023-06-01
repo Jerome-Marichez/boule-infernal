@@ -18,7 +18,7 @@ function App() {
   const gameOver = useSelector((state: rootState) => state.gameState.gameOver)
 
   // Get myMap
-  let myMap = new mapGenerator(defaultMapLevel, 7, 7);
+  let myMap = new mapGenerator(defaultMapLevel, 8, 8);
   myMap.addPlayersMap(15);
   myMap.onePlayerMap();
 

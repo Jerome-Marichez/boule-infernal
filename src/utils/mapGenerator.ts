@@ -42,7 +42,7 @@ export class mapGenerator {
 	 *@returns An object with the updated property "level","numberWall","numberGoal" representing the generated map.
 	 */
 	generateMapLevel() {
-		return (this.level = this.level.map((value) => {
+		this.level = this.level.map((value, index) => {
 			// Random a number
 			const randomNumber = Math.round(Math.random() * 50);
 
@@ -62,7 +62,25 @@ export class mapGenerator {
 			}
 
 			return value;
-		}));
+		});
+
+		return this.level = this.level.map((value, index, array) => {
+			const previousValue = array[index - 1];
+			if (value === 1 || value === 0) {
+				return value;
+			}
+			if (previousValue === 2 || previousValue === 3) {
+				if (value === 2) {
+					this.numberWall--;
+				}
+				if (value === 3) {
+					this.numberGoal--;
+				}
+				return 0;
+			}
+			return value;
+		});
+
 	}
 
 	/**
