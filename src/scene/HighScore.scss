@@ -12,12 +12,35 @@
 	.one_line {
 		display: flex;
 		flex-direction: row;
-		justify-content: space-between
+		justify-content: space-between;
 	}
 
 	.group {
 		display: flex;
 		flex-direction: row;
+	}
+
+	.scores {
+		display: flex;
+		min-width: 200px;
+		justify-content: space-between;
+
+		> .score,
+		> .name {
+			display: flex;
+			justify-content: space-between;
+			animation: opacity 2.5s forwards;
+
+			@keyframes opacity {
+				from {
+					opacity: 0;
+				}
+
+				to {
+					opacity: 1;
+				}
+			}
+		}
 	}
 
 	@mixin changeColorInfinite($fromColor, $toColor) {
@@ -31,17 +54,6 @@
 			to {
 				color: $toColor;
 			}
-		}
-	}
-
-	.scores {
-		display: flex;
-		min-width: 200px;
-		justify-content: space-between;
-
-		.score, .name {
-			display: flex;
-			justify-content: space-between;
 		}
 	}
 

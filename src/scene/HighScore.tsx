@@ -44,6 +44,7 @@ export default function HighScore(): JSX.Element {
 		});
 	}
 
+
 	return (
 		<div className="highscore">
 			<div className="one_line">{ElementHashTag(hashTag(25))}</div>
@@ -89,4 +90,6 @@ export default function HighScore(): JSX.Element {
 			<div className="one_line">{ElementHashTag(hashTag(25))}</div>
 		</div>
 	);
+
+
 }

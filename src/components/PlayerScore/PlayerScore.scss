@@ -3,13 +3,13 @@
 	min-width: 200px;
 	justify-content: space-between;
 
-	.score,
-	.name {
+	> .score,
+	> .name {
 		display: flex;
 		justify-content: space-between;
 	}
 
-	.name {
+	> .name {
 		color: white;
 		border: none;
 		outline: none;
