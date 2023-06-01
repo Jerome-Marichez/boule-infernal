@@ -1,4 +1,5 @@
-
+import { useState } from "react";
+import useKey from "@accessible/use-key"
 
 interface MusicLoopProps {
 	music: "gameover" | "theme",
@@ -14,11 +15,22 @@ interface MusicLoopProps {
  */
 export default function MusicLoop({ music, mute }: MusicLoopProps): JSX.Element {
 
-	return (
-		<audio autoPlay={true} loop muted={mute} key={music}>
-			<source src={require(`./${music}.mp3`)} type="audio/mp3" />
-		</audio>
-	)
+	const [interaction, setInteraction] = useState<boolean>(false);
 
+	useKey(window, {
+		ArrowUp: (event) => setInteraction(true),
+		ArrowDown: (event) => setInteraction(true),
+	})
+
+	if (interaction) {
+		return (
+			<audio autoPlay={true} loop muted={mute} key={music}>
+				<source src={require(`./${music}.mp3`)} type="audio/mp3" />
+			</audio>
+		)
+	}
+	else {
+		return (<></>);
+	}
 
 }
