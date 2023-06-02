@@ -5,7 +5,7 @@ import { createClient } from '@supabase/supabase-js';
  */
 export function connectSupaBase() {
 	const supabaseUrl = 'https://urhlfvmxrgmupsrkfkhk.supabase.co';
-	const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVyaGxmdm14cmdtdXBzcmtma2hrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU1NTQ2ODUsImV4cCI6MjAwMTEzMDY4NX0.mSN7Rkjba07d3X78qUFWwY5u7C4Mk98qSnStNlEWL7Y';
+	const supabaseKey = process.env.REACT_APP_KEY ?? "";
 	return createClient(supabaseUrl, supabaseKey);
 }
 
