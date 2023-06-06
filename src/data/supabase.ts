@@ -1,11 +1,12 @@
 import { createClient } from '@supabase/supabase-js';
+import { encryptData, decryptData } from "../utils/crypto";
 
 /**
  * @returns A supabase client connected to the database
  */
 export function connectSupaBase() {
 	const supabaseUrl = 'https://urhlfvmxrgmupsrkfkhk.supabase.co';
-	const supabaseKey = process.env.REACT_APP_KEY ?? "";
+	const supabaseKey = process.env.REACT_APP_API_KEY ?? "";
 	return createClient(supabaseUrl, supabaseKey);
 }
 
@@ -16,7 +17,16 @@ export function connectSupaBase() {
 export async function readScore(supabase: any) {
 	const response = await supabase.from('boule_infernal').select('*');
 	const responseData = response.data ?? false;
-	if (responseData && response.status === 200) { return responseData; };
+
+	if (responseData && response.status === 200) {
+		const dataDecrypted = responseData.map((value) => {
+			value.score = decryptData(value.score);
+			value.score = Number(value.score);
+			return value;
+		})
+		return dataDecrypted;
+	};
+
 	return false;
 }
 
@@ -30,7 +40,7 @@ export async function readScore(supabase: any) {
 export async function insertScore(supabase: any, name: string, score: number) {
 	const response = await supabase.from('boule_infernal').insert({
 		name: name,
-		score: score,
+		score: encryptData(score.toString()),
 	});
 	if (response.status === 201) { return true; }
 	return false;
