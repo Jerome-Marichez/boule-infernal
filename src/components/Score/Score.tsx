@@ -38,7 +38,7 @@ export default function Score(props: ScoreProps): JSX.Element {
 		}
 	}
 
-	if (keyEnter) { registerScore(); }
+	if (keyEnter && isItActualPlayer) { registerScore(); }
 
 
 	const displayInputScore = (isItActualPlayer: boolean) => {
