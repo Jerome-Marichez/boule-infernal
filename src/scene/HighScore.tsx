@@ -1,25 +1,34 @@
 import "./HighScore.scss";
 import { connectSupaBase, readScore } from "../data/supabase";
 import { useEffect, useState } from "react";
-import PlayerScore from "../components/PlayerScore/PlayerScore";
+import Score from "../components/Score/Score";
+import { useSelector } from "react-redux";
+import { rootState } from "../redux/store";
 
 interface scoreObject {
-	score: number
-	name: string
+	score: number,
+	name: string,
 }
+
+interface scoresArray extends Array<scoreObject> { }
+
 
 export default function HighScore(): JSX.Element {
 
-	const [allHighScore, setAllHighScore] = useState<Array<scoreObject>>([]);
+	// Retrieve My Score using Redux
+	const myScore = useSelector((state: rootState) => state.gameState.score);
 
-	const loadScore = async () => {
+	// Get All Scores
+	const [allHighScore, setAllHighScore] = useState<scoresArray>([]);
+
+	const loadAllScores = async () => {
 		const connection: any = await connectSupaBase();
 		const readScores: any = await readScore(connection);
 		setAllHighScore(readScores);
 	}
 
 	useEffect(() => {
-		loadScore();
+		loadAllScores();
 	}, [])
 
 	const topHighScore = allHighScore.sort((a, b) => a.score - b.score).reverse().slice(0, 15);
@@ -63,14 +72,14 @@ export default function HighScore(): JSX.Element {
 			</div>
 			<div className="one_line">
 				<div className="group">{ElementHashTag(hashTag(3))}</div>
-				<div className="scores"><PlayerScore /></div>
+				<Score name={"Name"} score={myScore} isItActualPlayer={true} />
 				<div className="group">{ElementHashTag(hashTag(3))}</div>
 			</div>
-			{topHighScore.map((value) => {
+			{topHighScore.map((value, index) => {
 				return (
 					<div className="one_line">
 						<div className="group">{ElementHashTag(hashTag(3))}</div>
-						<div className="scores"><div className="name">{value.name}</div> <div className="score">{value.score}</div></div>
+						<Score key={index} name={value.name} score={value.score} isItActualPlayer={false} />
 						<div className="group">{ElementHashTag(hashTag(3))}</div>
 					</div>
 				)
