@@ -34,6 +34,7 @@ export default function PlayerScore(): JSX.Element {
 			<input className={keyEnter ? 'name' : 'name animate'}
 				onChange={(e) => setName(e.target.value)}
 				defaultValue={name}
+				maxLength={9}
 				disabled={keyEnter ? true : false}
 				autoFocus={true}
 			/>
