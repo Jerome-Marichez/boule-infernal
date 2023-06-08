@@ -15,6 +15,7 @@ interface GameProps {
 	speed: number;
 }
 
+
 /**
  * Renders a game scene with a playable screen area of given height and width
  * @param heightGame The height of the playable screen area
@@ -24,8 +25,10 @@ interface GameProps {
  * @returns The game scene where the magic happens
  */
 
-export default function Game({ heightGame, widthGame, map, speed }: GameProps): JSX.Element {
 
+export default function Game(props: GameProps): JSX.Element {
+	
+	const { heightGame, widthGame, map, speed } = props; 
 	const [moveMap, blockHit, setKeyPressed, setStop] = useGameMovement(map.level, 15, speed);
 	const [score, gameOver] = useGameState(blockHit, map.numberGoal);
 
