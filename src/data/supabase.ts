@@ -21,17 +21,15 @@ export async function readScore(supabase: any) {
 	const response = await supabase.from('boule_infernal').select('*');
 	const responseData = response.data ?? false;
 
-	if (responseData && response.status === 200) {
-		const dataDecrypted = responseData.map((value) => {
-			value.score = decryptData(value.score);
-			value.score = Number(value.score);
-			return value;
-		})
+	if (!responseData && response.status !== 200) { return false; };
 
-		return dataDecrypted.filter((a: scoreObject) => regexUser.test(a.name))
-	};
+	const dataDecrypted = responseData.map((value) => {
+		value.score = decryptData(value.score);
+		value.score = Number(value.score);
+		return value;
+	})
 
-	return false;
+	return dataDecrypted.filter((a: scoreObject) => regexUser.test(a.name))
 }
 
 /**
