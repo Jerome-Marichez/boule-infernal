@@ -3,7 +3,7 @@ import "./Score.scss";
 import { useState } from "react";
 import useKey from "@accessible/use-key";
 import { connectSupaBase, insertScore } from "../../data/supabase";
-
+import { regexUser } from "../../utils/regex";
 
 interface ScoreProps {
 	name: string;
@@ -30,6 +30,16 @@ export default function Score(props: ScoreProps): JSX.Element {
 		Enter: () => setKeyEnter(true),
 	})
 
+	const checkName = (name: string) => {
+		if (regexUser.test(name)) {
+			setName(name);
+		}
+
+		if (name.length === 0) {
+			setName("");
+		}
+	}
+
 	const registerScore = async () => {
 		if (!scoreSubmit) {
 			const connection: any = await connectSupaBase();
@@ -45,8 +55,9 @@ export default function Score(props: ScoreProps): JSX.Element {
 		if (isItActualPlayer) {
 			return (
 				<input className={keyEnter ? 'name' : 'name animate'}
-					onChange={(e) => setName(e.target.value)}
+					onChange={(e) => checkName(e.target.value)}
 					defaultValue={name}
+					value={name}
 					maxLength={9}
 					disabled={keyEnter ? true : false}
 					autoFocus={true}
