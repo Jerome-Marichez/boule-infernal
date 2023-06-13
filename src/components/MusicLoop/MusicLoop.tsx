@@ -13,7 +13,7 @@ interface MusicLoopProps {
  * @example 
  * <MusicLoop music={"gameover"} mute={gameOver ? false : true} />
  */
-export default function MusicLoop({ music, mute }: MusicLoopProps): JSX.Element {
+export function MusicLoop({ music, mute }: MusicLoopProps): JSX.Element {
 
 	const [interaction, setInteraction] = useState<boolean>(false);
 

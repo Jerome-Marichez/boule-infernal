@@ -3,6 +3,7 @@ export interface gameState {
 	maxScore: number,
 	gameOver: boolean, 
 	speed: number, 
+	mute: boolean, 
 }
 
 export const initialState: gameState = {
@@ -10,4 +11,5 @@ export const initialState: gameState = {
 	maxScore: 0,
 	gameOver: false,
 	speed: 50,  
+	mute: true,
 };

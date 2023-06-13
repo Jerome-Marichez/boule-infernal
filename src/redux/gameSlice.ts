@@ -26,12 +26,16 @@ export const gameSlice = createSlice({
 		setGameOver: (state: gameState, action: PayloadAction<boolean>) => {
 			state.gameOver = action.payload;
 		},
+
+		setMute: (state: gameState, action: PayloadAction<boolean>) => {
+			state.mute = action.payload; 
+		}
 	},
 });
 
 
 
 // Action creators are generated for each case reducer function
-export const { setScore, setMaxScore, setSpeed, setGameOver } = gameSlice.actions;
+export const { setScore, setMaxScore, setSpeed, setGameOver, setMute } = gameSlice.actions;
 
 export default gameSlice.reducer;

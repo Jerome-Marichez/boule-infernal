@@ -1,5 +1,5 @@
 import "./Game.scss";
-import { Block, Player } from '../components';
+import { Block, Player, SoundControl } from '../components';
 import useGameMovement from "../hook/useGameMouvement";
 import useGameState from "../hook/useGameState";
 import { useEffect } from "react";
@@ -27,11 +27,11 @@ interface GameProps {
 
 
 export default function Game(props: GameProps): JSX.Element {
-	
-	const { heightGame, widthGame, map, speed } = props; 
+
+	const { heightGame, widthGame, map, speed } = props;
 	const [moveMap, blockHit, setKeyPressed, setStop] = useGameMovement(map.level, 15, speed);
 	const [score, gameOver] = useGameState(blockHit, map.numberGoal);
-
+	
 	// Stop Game Mouvement if GameOver
 	useEffect(() => {
 		setStop(gameOver);
@@ -44,69 +44,71 @@ export default function Game(props: GameProps): JSX.Element {
 	let pixelSize: number = Math.floor((6.67 / 100) * widthGame);
 
 	return (
-		<div className={gameOver ? "game dead" : "game"} style={{
-			width: `${widthGame}px`,
-			height: `${heightGame}px`,
-			padding: `${topStart}px`,
-		}}>
+		<>
+			<SoundControl />
+			<div className={gameOver ? "game dead" : "game"} style={{
+				width: `${widthGame}px`,
+				height: `${heightGame}px`,
+				padding: `${topStart}px`,
+			}}>
 
-			<div className="background">
-				{moveMap.map((value, index): JSX.Element => {
-					let element: JSX.Element = <></>;
+				<div className="background">
+					{moveMap.map((value, index): JSX.Element => {
+						let element: JSX.Element = <></>;
 
-					const createSprite = (type: "empty" | "green" | "wall" | "goal" | "player") => (
-						type === "player" ?
+						const createSprite = (type: "empty" | "green" | "wall" | "goal" | "player") => (
+							type === "player" ?
 
-							<Player
-								leftPosition={leftStart}
-								topPosition={topStart}
-								pixelSize={pixelSize}
-								setKeyPressed={setKeyPressed}
-								sound={blockHit}
-								key={index}
-							/>
-							:
-							<Block
-								leftPosition={leftStart}
-								topPosition={topStart}
-								pixelSize={pixelSize}
-								type={type}
-								key={index}
-							/>
+								<Player
+									leftPosition={leftStart}
+									topPosition={topStart}
+									pixelSize={pixelSize}
+									setKeyPressed={setKeyPressed}
+									sound={blockHit}
+									key={index}
+								/>
+								:
+								<Block
+									leftPosition={leftStart}
+									topPosition={topStart}
+									pixelSize={pixelSize}
+									type={type}
+									key={index}
+								/>
 
-					);
+						);
 
-					switch (value) {
-						case 1:
-							element = createSprite("green");
-							break;
-						case 2:
-							element = createSprite("wall");
-							break;
-						case 3:
-							element = createSprite("goal");
-							break;
-						case 4:
-							element = createSprite("player");
-							break;
-						default:
-							element = createSprite("empty");
-							break;
-					}
+						switch (value) {
+							case 1:
+								element = createSprite("green");
+								break;
+							case 2:
+								element = createSprite("wall");
+								break;
+							case 3:
+								element = createSprite("goal");
+								break;
+							case 4:
+								element = createSprite("player");
+								break;
+							default:
+								element = createSprite("empty");
+								break;
+						}
 
-					leftStart = leftStart + pixelSize;
+						leftStart = leftStart + pixelSize;
 
-					if (leftStart - pixelSize > widthGame) {
-						leftStart = (10 / 100) * widthGame;
-						topStart = topStart + pixelSize;
-					}
+						if (leftStart - pixelSize > widthGame) {
+							leftStart = (10 / 100) * widthGame;
+							topStart = topStart + pixelSize;
+						}
 
-					return element;
-				})}
+						return element;
+					})}
+				</div>
+
 			</div>
-
-		</div>
-	)
+		</>)
 	// End Drawn the map
 
 }

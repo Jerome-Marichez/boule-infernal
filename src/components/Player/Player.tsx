@@ -1,6 +1,8 @@
 import "./Player.scss"
 import useKey from '@accessible/use-key'
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { rootState } from "../../redux/store";
 
 
 interface PlayerProps {
@@ -22,13 +24,16 @@ interface PlayerProps {
 export function Player(props: PlayerProps): JSX.Element {
 
 	const { topPosition, leftPosition, pixelSize, setKeyPressed, sound } = props;
-	
+	const mute = useSelector((state: rootState) => state.gameState.mute)
+
 	useKey(window, {
 		ArrowUp: (event) => setKeyPressed("Up"),
 		ArrowDown: (event) => setKeyPressed("Down"),
 	})
 
 	useEffect(() => {
+		if (mute) return;
+
 		try {
 			const audio = new Audio(require(`./${sound}.wav`));
 			audio.play();
@@ -36,7 +41,7 @@ export function Player(props: PlayerProps): JSX.Element {
 		catch (e) {
 
 		}
-	}, [sound])
+	}, [sound, mute])
 
 
 	return (
