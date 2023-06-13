@@ -4,13 +4,7 @@ import { useEffect, useState } from "react";
 import Score from "../components/Score/Score";
 import { useSelector } from "react-redux";
 import { rootState } from "../redux/store";
-
-interface scoreObject {
-	score: number,
-	name: string,
-}
-
-interface scoresArray extends Array<scoreObject> { }
+import { scoresArray } from "../sharedInterface/score";
 
 
 export default function HighScore(): JSX.Element {
@@ -44,7 +38,7 @@ export default function HighScore(): JSX.Element {
 	// Return Element Hash Tag 
 	const ElementHashTag = (hashTaglist: String) => {
 		const p = hashTaglist.split("");
-		return p.map((value: any, index: number) => {
+		return p.map((value: string, index: number) => {
 			const isInteger = Number.isInteger(index / 2);
 			if (isInteger) {
 				return <div key={index} className="color1">#</div>
@@ -72,7 +66,7 @@ export default function HighScore(): JSX.Element {
 			</div>
 			<div className="one_line">
 				<div className="group">{ElementHashTag(hashTag(3))}</div>
-				<Score name={"Name"} score={myScore} isItActualPlayer={true} />
+				<Score name={"Name"} score={myScore} isItActualPlayer={true} key={topHighScore.length + 1} />
 				<div className="group">{ElementHashTag(hashTag(3))}</div>
 			</div>
 			{topHighScore.map((value, index) => {

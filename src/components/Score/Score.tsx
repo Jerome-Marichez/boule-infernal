@@ -4,10 +4,10 @@ import { useState } from "react";
 import useKey from "@accessible/use-key";
 import { connectSupaBase, insertScore } from "../../data/supabase";
 import { regexUser } from "../../utils/regex";
+import { scoreObject } from "../../sharedInterface/score";
 
-interface ScoreProps {
-	name: string;
-	score: number;
+
+interface ScoreProps extends scoreObject {
 	isItActualPlayer: boolean;
 }
 
@@ -43,7 +43,7 @@ export default function Score(props: ScoreProps): JSX.Element {
 	const registerScore = async () => {
 		if (!scoreSubmit) {
 			const connection: any = await connectSupaBase();
-			await insertScore(connection, name, score);
+			await insertScore(connection, { name: name, score: score });
 			setScoreSubmit(true);
 		}
 	}
@@ -56,7 +56,6 @@ export default function Score(props: ScoreProps): JSX.Element {
 			return (
 				<input className={keyEnter ? 'name' : 'name animate'}
 					onChange={(e) => checkName(e.target.value)}
-					defaultValue={name}
 					value={name}
 					maxLength={9}
 					disabled={keyEnter ? true : false}

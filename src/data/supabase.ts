@@ -1,5 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 import { encryptData, decryptData } from "../utils/crypto";
+import { regexUser } from '../utils/regex';
+import { scoreObject } from '../sharedInterface/score';
+
 
 /**
  * @returns A supabase client connected to the database
@@ -24,7 +27,8 @@ export async function readScore(supabase: any) {
 			value.score = Number(value.score);
 			return value;
 		})
-		return dataDecrypted;
+
+		return dataDecrypted.filter((a: scoreObject) => regexUser.test(a.name))
 	};
 
 	return false;
@@ -33,14 +37,13 @@ export async function readScore(supabase: any) {
 /**
  * Insert a row into the table "boule_infernal" with Supabase
  * @param supabase A Supabase client
- * @param name Name of the user 
- * @param score The total score of the user
+ * @param scoreObject The score object with name propriety as a string & score propriety as a number 
  * @returns True if the values were inserted successfully, false if an error occurred.
  */
-export async function insertScore(supabase: any, name: string, score: number) {
+export async function insertScore(supabase: any, scoreObject: scoreObject) {
 	const response = await supabase.from('boule_infernal').insert({
-		name: name,
-		score: encryptData(score.toString()),
+		name: scoreObject.name,
+		score: encryptData(scoreObject.score.toString()),
 	});
 	if (response.status === 201) { return true; }
 	return false;
