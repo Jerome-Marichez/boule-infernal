@@ -22,7 +22,7 @@ interface BlockProps {
 export function Block({ topPosition, leftPosition, pixelSize, type }: BlockProps): JSX.Element {
 
 	return (
-		<div className={`block ${type}`} style={
+		<div className={`block ${type}`} role="img" style={
 			{
 				height: `${pixelSize}px`,
 				width: `${pixelSize}px`,
