@@ -24,8 +24,8 @@ export function MusicLoop({ music, mute }: MusicLoopProps): JSX.Element {
 
 	if (interaction) {
 		return (
-			<audio autoPlay={true} loop muted={mute} key={music}>
-				<source src={require(`./${music}.mp3`)} type="audio/mp3" />
+			<audio data-testid="audio" autoPlay={true} loop muted={mute} key={music}>
+				<source data-testid="source" src={require(`./${music}.mp3`)} type="audio/mp3" />
 			</audio>
 		)
 	}
