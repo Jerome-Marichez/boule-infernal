@@ -1,7 +1,7 @@
 import React from 'react';
 import { screen, render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { MusicLoop } from '../../components/MusicLoop/MusicLoop';
+import { MusicLoop } from '../../components';
 
 describe('MusicLoop component', () => {
 
