@@ -1,7 +1,8 @@
-/** 0 = empty block */
-/** 1 = green block */
-/** 2 = wall block */
-/** 3 = goal block */
+/* 0 = empty block */
+/* 1 = green block */
+/* 2 = wall block */
+/* 3 = goal block */
+/* 4 = player  */
 export const defaultMapLevel: Array<number> = [
 	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 	1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,

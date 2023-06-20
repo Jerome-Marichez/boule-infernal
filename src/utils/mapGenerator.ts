@@ -9,7 +9,7 @@ export class mapGenerator {
 	 * @param defaultMapLevel The default map level with only green blocks and the length of the map.
 	 * @param numberMaxWall The maximum number of wall blocks that can be generated.
 	 * @param numberMaxGoal The maximum number of goal blocks that can be generated.
-	 * @return A object with 6 propriety
+	 * @return A object with 5 propriety
 	 *
 	 * level = The map level
 	 *

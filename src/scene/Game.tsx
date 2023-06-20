@@ -5,14 +5,14 @@ import useGameState from "../hook/useGameState";
 import { useEffect } from "react";
 
 interface GameProps {
-	heightGame: number;
-	widthGame: number;
+	heightGame: number,
+	widthGame: number,
 	map: {
-		level: Array<number>;
-		numberWall: number;
-		numberGoal: number;
-	};
-	speed: number;
+		level: Array<number>,
+		numberWall: number,
+		numberGoal: number
+	},
+	speed: number
 }
 
 

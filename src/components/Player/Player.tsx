@@ -45,7 +45,7 @@ export function Player(props: PlayerProps): JSX.Element {
 
 
 	return (
-		<div className="player" style={
+		<div className="player" role="img" style={
 			{
 				height: `${pixelSize}px`,
 				width: `${pixelSize}px`,
