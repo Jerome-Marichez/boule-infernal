@@ -73,7 +73,7 @@ export default function HighScore(): JSX.Element {
 				return (
 					<div className="one_line">
 						<div className="group">{ElementHashTag(hashTag(3))}</div>
-						<Score key={index} name={value.name} score={value.score} isItActualPlayer={false} />
+						<Score key={index} name={value.name.slice(0,10)} score={value.score} isItActualPlayer={false} />
 						<div className="group">{ElementHashTag(hashTag(3))}</div>
 					</div>
 				)

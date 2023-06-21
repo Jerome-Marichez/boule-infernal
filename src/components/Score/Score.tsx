@@ -57,7 +57,7 @@ export default function Score(props: ScoreProps): JSX.Element {
 				<input className={keyEnter ? 'name' : 'name animate'}
 					onChange={(e) => checkName(e.target.value)}
 					value={name}
-					maxLength={9}
+					maxLength={10}
 					disabled={keyEnter ? true : false}
 					autoFocus={true}
 				/>
