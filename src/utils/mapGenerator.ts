@@ -1,4 +1,4 @@
-export class mapGenerator {
+export class MapGenerator {
 	level: Array<number>;
 	numberWall: number;
 	numberGoal: number;
