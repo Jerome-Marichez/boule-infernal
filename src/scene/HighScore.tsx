@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Score from "../components/Score/Score";
 import { useSelector } from "react-redux";
 import { rootState } from "../redux/store";
-import { scoresArray } from "../sharedInterface/score";
+import { Scores } from "../sharedTypes/score";
 
 
 export default function HighScore(): JSX.Element {
@@ -13,7 +13,7 @@ export default function HighScore(): JSX.Element {
 	const myScore = useSelector((state: rootState) => state.gameState.score);
 
 	// Get All Scores
-	const [allHighScore, setAllHighScore] = useState<scoresArray>([]);
+	const [allHighScore, setAllHighScore] = useState<Scores>([]);
 
 	const loadAllScores = async () => {
 		const connection: any = await connectSupaBase();

@@ -4,10 +4,10 @@ import { useState } from "react";
 import useKey from "@accessible/use-key";
 import { connectSupaBase, insertScore } from "../../data/supabase";
 import { regexUser } from "../../utils/regex";
-import { scoreObject } from "../../sharedInterface/score";
+import { ScoreObject } from "../../sharedTypes/score";
 
 
-interface ScoreProps extends scoreObject {
+interface ScoreProps extends ScoreObject {
 	isItActualPlayer: boolean;
 }
 
@@ -23,6 +23,7 @@ export default function Score(props: ScoreProps): JSX.Element {
 
 	const { score, isItActualPlayer } = props;
 	const [name, setName] = useState<string>(props.name);
+	
 	const [keyEnter, setKeyEnter] = useState<boolean>(false);
 	const [scoreSubmit, setScoreSubmit] = useState<boolean>(false);
 

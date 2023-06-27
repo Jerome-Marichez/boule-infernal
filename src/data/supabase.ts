@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { encryptData, decryptData } from "../utils/crypto";
 import { regexUser } from '../utils/regex';
-import { scoreObject } from '../sharedInterface/score';
+import { ScoreObject } from '../sharedTypes/score';
 
 
 /**
@@ -29,7 +29,7 @@ export async function readScore(supabase: any) {
 		return value;
 	})
 
-	return dataDecrypted.filter((a: scoreObject) => regexUser.test(a.name))
+	return dataDecrypted.filter((a: ScoreObject) => regexUser.test(a.name))
 }
 
 /**
@@ -38,7 +38,7 @@ export async function readScore(supabase: any) {
  * @param scoreObject The score object with name propriety as a string & score propriety as a number 
  * @returns True if the values were inserted successfully, false if an error occurred.
  */
-export async function insertScore(supabase: any, scoreObject: scoreObject) {
+export async function insertScore(supabase: any, scoreObject: ScoreObject) {
 	const response = await supabase.from('boule_infernal').insert({
 		name: scoreObject.name,
 		score: encryptData(scoreObject.score.toString()),
