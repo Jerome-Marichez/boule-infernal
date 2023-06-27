@@ -14,9 +14,9 @@ interface ScoreProps extends ScoreObject {
 /**
  * @returns A Component Score.
  * Submit the score by pressing "ENTER" if isItActualPlayer is set to true.
- * @param - The name associated with the score.
- * @param - The score.
- * @param - isItActualPlayer true if it's the actual player, false otherwise. If false, it returns a component score that cannot be modified or submit score
+ * @param name associated with the score.
+ * @param score The score
+ * @param isItActualPlayer A boolean true if it's the actual player, false otherwise. If false, it returns a component score that cannot be modified or submit score
  */
 
 export default function Score(props: ScoreProps): JSX.Element {
