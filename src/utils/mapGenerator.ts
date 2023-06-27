@@ -1,3 +1,10 @@
+// see "./mapData.ts" to get a sample default map
+/* 0 = empty block */
+/* 1 = green block */
+/* 2 = wall block */
+/* 3 = goal block */
+/* 4 = player  */
+
 export class MapGenerator {
 	level: Array<number>;
 	numberWall: number;
@@ -42,7 +49,7 @@ export class MapGenerator {
 	 *@returns An object with the updated property "level","numberWall","numberGoal" representing the generated map.
 	 */
 	generateMapLevel() {
-		this.level = this.level.map((value, index) => {
+		this.level = this.level.map((value) => {
 			// Random a number
 			const randomNumber = Math.round(Math.random() * 50);
 
@@ -64,6 +71,7 @@ export class MapGenerator {
 			return value;
 		});
 
+		// Avoid that in the map previous block is the same if it's a goal block or wall block
 		return this.level = this.level.map((value, index, array) => {
 			const previousValue = array[index - 1];
 			if (value === 1 || value === 0) {
@@ -84,7 +92,7 @@ export class MapGenerator {
 	}
 
 	/**
-	 * @returns An object with the updated property "level" representing the generated map, including all possible starting player choices.
+	 * @returns An object with the updated property "level" representing the generated map, including all possible starting player choices display at "4" in the array
 	 */
 	addPlayersMap(blockPerLine: number): Array<number> {
 		let startIndex = blockPerLine;
