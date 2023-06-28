@@ -23,13 +23,16 @@ export async function readScore(supabase: any) {
 
 	if (!responseData && response.status !== 200) { return false; };
 
-	const dataDecrypted = responseData.map((value) => {
+	return responseData.filter((value: any) => {
+		const isNameCorrect = regexUser.test(value.name);
 		value.score = decryptData(value.score);
-		value.score = Number(value.score);
-		return value;
-	})
+		value.score = Number.parseInt(value.score);
 
-	return dataDecrypted.filter((a: ScoreObject) => regexUser.test(a.name))
+		if (value.score && isNameCorrect) {
+			return true;
+		}
+		return false;
+	})
 }
 
 /**
