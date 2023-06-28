@@ -9,7 +9,7 @@ import { act } from 'react-dom/test-utils';
 
 describe("Player Component", () => {
 
-	test('renders player with their accurate style ?', async () => {
+	test('renders player with their accurate style and callback work ?', async () => {
 		const setKeyPressedMock = jest.fn();
 
 		const pixelSize: number = Math.floor(Math.random() * 40);
