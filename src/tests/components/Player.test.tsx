@@ -1,11 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'; // Import jest-dom matchers
 import { Player } from '../../components';
 import { Provider } from 'react-redux';
 import { store } from '../../redux/store';
 import userEvent from "@testing-library/user-event";
-import { act } from 'react-dom/test-utils';
 
 describe("Player Component", () => {
 
