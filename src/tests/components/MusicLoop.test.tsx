@@ -5,7 +5,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { MusicLoop } from '../../components';
 
 describe('MusicLoop component', () => {
-	test('no renders without interaction but empty fragment is here', async () => {
+	test('no render without interaction but empty fragment is here', async () => {
 		render(<MusicLoop music="gameover" mute={true} />);
 		let audioTag: HTMLElement | null = screen.queryByTestId('audio');
 		expect(audioTag).toBeNull();
@@ -14,7 +14,7 @@ describe('MusicLoop component', () => {
 		expect(empty).toBeInTheDocument();
 	})
 
-	test('renders after user interaction (arrow key press)', async () => {
+	test('render after user interaction (arrow key press)', async () => {
 		render(<MusicLoop music="gameover" mute={true} />);
 
 		let audioTag: HTMLElement | null = screen.queryByTestId('audio');
@@ -32,4 +32,19 @@ describe('MusicLoop component', () => {
 			expect.stringContaining('gameover.mp3')
 		);
 	});
+
+	test('Does it call setInteraction when arrow key is pressed ?', async () => {
+		const setInteractionMock = jest.fn();
+		jest.spyOn(React, 'useState').mockReturnValueOnce([false, setInteractionMock]);
+
+		render(<MusicLoop music="gameover" mute={true} />);
+
+		const user = userEvent.setup();
+		await act(async () => {
+			await user.keyboard('[ArrowUp]');
+			await user.keyboard('[ArrowDown]');
+		});
+
+		expect(setInteractionMock).toHaveBeenCalledTimes(2);
+	})
 });
