@@ -9,7 +9,7 @@ interface PlayerProps {
 	topPosition: number;
 	leftPosition: number;
 	pixelSize: number;
-	setKeyPressed: any;
+	setKeyPressed: (value: "Up" | "Down" | "") => void;
 	sound: "goal" | "wall" | "empty" | "green"
 }
 
