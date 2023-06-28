@@ -66,7 +66,7 @@ export default function Score(props: ScoreProps): JSX.Element {
 		}
 		else {
 			return (
-				<div className="name">{name}</div>
+				<div data-testid="name" className="name">{name}</div>
 			)
 		}
 	}
