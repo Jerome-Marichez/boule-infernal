@@ -18,19 +18,19 @@ export function MusicLoop({ music, mute }: MusicLoopProps): JSX.Element {
 	const [interaction, setInteraction] = useState<boolean>(false);
 
 	useKey(window, {
-		ArrowUp: (event) => setInteraction(true),
-		ArrowDown: (event) => setInteraction(true),
+		ArrowUp: () => setInteraction(true),
+		ArrowDown: () => setInteraction(true),
 	})
 
 	if (interaction) {
 		return (
-			<audio data-testid="audio" autoPlay={true} loop muted={mute} key={music}>
+			<audio data-testid="audio" autoPlay loop muted={mute} key={music}>
 				<source data-testid="source" src={require(`./${music}.mp3`)} type="audio/mp3" />
 			</audio>
 		)
 	}
 	else {
-		return (<></>);
+		return (<div data-testid="empty" />);
 	}
 
 }

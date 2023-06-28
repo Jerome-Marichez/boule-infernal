@@ -5,24 +5,28 @@ import '@testing-library/jest-dom/extend-expect';
 import { MusicLoop } from '../../components';
 
 describe('MusicLoop component', () => {
+	test('no renders without interaction but empty fragment is here', async () => {
+		render(<MusicLoop music="gameover" mute={true} />);
+		let audioTag: HTMLElement | null = screen.queryByTestId('audio');
+		expect(audioTag).toBeNull();
 
-	test('renders audio after user interaction (arrow key press)', async () => {
+		const empty = screen.getByTestId("empty");
+		expect(empty).toBeInTheDocument();
+	})
+
+	test('renders after user interaction (arrow key press)', async () => {
 		render(<MusicLoop music="gameover" mute={true} />);
 
 		let audioTag: HTMLElement | null = screen.queryByTestId('audio');
 		expect(audioTag).toBeNull();
 
 		const user = userEvent.setup();
-
 		await act(async () => {
 			await user.keyboard('[ArrowUp]');
 			await user.keyboard('[ArrowDown]');
 		});
 
-		audioTag = await screen.findByTestId('audio');
 		const sourceElement: HTMLElement = await screen.findByTestId('source');
-
-		expect(audioTag).toBeInTheDocument();
 		expect(sourceElement).toHaveAttribute(
 			'src',
 			expect.stringContaining('gameover.mp3')
