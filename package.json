@@ -49,6 +49,8 @@
   },
   "devDependencies": {
     "@jest/globals": "^29.5.0",
+    "@stryker-mutator/core": "^7.1.0",
+    "@stryker-mutator/jest-runner": "^7.1.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/crypto-js": "^4.1.1"
   }

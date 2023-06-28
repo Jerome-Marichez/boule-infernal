@@ -6,8 +6,12 @@ export function encryptData(text: string) {
 }
 
 export function decryptData(text: string) {
-	const secretPass = process.env.REACT_APP_CRYPTO_KEY ?? "";
-	const bytes = CryptoJS.AES.decrypt(text, secretPass);
-	const data = bytes.toString(CryptoJS.enc.Utf8);
-	return data;
+	try {
+		const secretPass = process.env.REACT_APP_CRYPTO_KEY ?? "";
+		const bytes = CryptoJS.AES.decrypt(text, secretPass);
+		const data = bytes.toString(CryptoJS.enc.Utf8);
+		return data;
+	} catch (error) {
+		return false;
+	}
 };
