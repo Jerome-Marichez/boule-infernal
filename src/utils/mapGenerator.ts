@@ -1,5 +1,13 @@
-export class mapGenerator {
-	level: Array<number>;
+// see "./mapData.ts" to get a sample default map
+/* 0 = empty block */
+/* 1 = green block */
+/* 2 = wall block */
+/* 3 = goal block */
+/* 4 = player  */
+
+import { Level } from "../sharedTypes/map";
+export class MapGenerator {
+	level: Level;
 	numberWall: number;
 	numberGoal: number;
 	numberMaxWall: number;
@@ -9,7 +17,7 @@ export class mapGenerator {
 	 * @param defaultMapLevel The default map level with only green blocks and the length of the map.
 	 * @param numberMaxWall The maximum number of wall blocks that can be generated.
 	 * @param numberMaxGoal The maximum number of goal blocks that can be generated.
-	 * @return A object with 6 propriety
+	 * @return A object with 5 propriety
 	 *
 	 * level = The map level
 	 *
@@ -25,7 +33,7 @@ export class mapGenerator {
 	 */
 
 	constructor(
-		defaultMapLevel: Array<number>,
+		defaultMapLevel: Level,
 		numberMaxWall: number,
 		numberMaxGoal: number
 	) {
@@ -42,14 +50,14 @@ export class mapGenerator {
 	 *@returns An object with the updated property "level","numberWall","numberGoal" representing the generated map.
 	 */
 	generateMapLevel() {
-		this.level = this.level.map((value, index) => {
+		this.level = this.level.map((value) => {
+			// Do not replace green blocks in the map level.
+			if (value === 1) return value;
+
 			// Random a number
 			const randomNumber = Math.round(Math.random() * 50);
 
-			// Do not replace green blocks in the default map level.
-			if (value === 1 || randomNumber === 1) return value;
-
-			// Do not generate wall blocks if the maximum number of wall blocks has been reached.
+			// Do not generate wall blocks if it reach maximum number of wall blocks has been reached.
 			if (randomNumber === 2 && this.numberWall < this.numberMaxWall) {
 				this.numberWall++;
 				return randomNumber;
@@ -64,27 +72,28 @@ export class mapGenerator {
 			return value;
 		});
 
+		// Ensure that the previous block in the map cannot be a goal or wall if it is currently a goal or wall block.
 		return this.level = this.level.map((value, index, array) => {
+
 			const previousValue = array[index - 1];
-			if (value === 1 || value === 0) {
-				return value;
-			}
 			if (previousValue === 2 || previousValue === 3) {
 				if (value === 2) {
 					this.numberWall--;
+					return 0;
 				}
 				if (value === 3) {
 					this.numberGoal--;
+					return 0;
 				}
-				return 0;
 			}
+
 			return value;
 		});
 
 	}
 
 	/**
-	 * @returns An object with the updated property "level" representing the generated map, including all possible starting player choices.
+	 * @returns An object with the updated property "level" representing the generated map, including all possible starting player choices display at "4" in the array
 	 */
 	addPlayersMap(blockPerLine: number): Array<number> {
 		let startIndex = blockPerLine;

@@ -9,7 +9,7 @@ interface PlayerProps {
 	topPosition: number;
 	leftPosition: number;
 	pixelSize: number;
-	setKeyPressed: any;
+	setKeyPressed: (value: "Up" | "Down" | "") => void;
 	sound: "goal" | "wall" | "empty" | "green"
 }
 
@@ -45,7 +45,7 @@ export function Player(props: PlayerProps): JSX.Element {
 
 
 	return (
-		<div className="player" style={
+		<div className="player" role="img" style={
 			{
 				height: `${pixelSize}px`,
 				width: `${pixelSize}px`,

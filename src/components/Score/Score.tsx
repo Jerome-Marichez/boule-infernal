@@ -4,25 +4,26 @@ import { useState } from "react";
 import useKey from "@accessible/use-key";
 import { connectSupaBase, insertScore } from "../../data/supabase";
 import { regexUser } from "../../utils/regex";
-import { scoreObject } from "../../sharedInterface/score";
+import { ScoreObject } from "../../sharedTypes/score";
 
 
-interface ScoreProps extends scoreObject {
+interface ScoreProps extends ScoreObject {
 	isItActualPlayer: boolean;
 }
 
 /**
  * @returns A Component Score.
  * Submit the score by pressing "ENTER" if isItActualPlayer is set to true.
- * @param - The name associated with the score.
- * @param - The score.
- * @param - isItActualPlayer true if it's the actual player, false otherwise. If false, it returns a component score that cannot be modified or submit score
+ * @param name associated with the score.
+ * @param score The score
+ * @param isItActualPlayer A boolean true if it's the actual player, false otherwise. If false, it returns a component score that cannot be modified or submit score
  */
 
 export default function Score(props: ScoreProps): JSX.Element {
 
 	const { score, isItActualPlayer } = props;
 	const [name, setName] = useState<string>(props.name);
+	
 	const [keyEnter, setKeyEnter] = useState<boolean>(false);
 	const [scoreSubmit, setScoreSubmit] = useState<boolean>(false);
 
@@ -57,7 +58,7 @@ export default function Score(props: ScoreProps): JSX.Element {
 				<input className={keyEnter ? 'name' : 'name animate'}
 					onChange={(e) => checkName(e.target.value)}
 					value={name}
-					maxLength={9}
+					maxLength={10}
 					disabled={keyEnter ? true : false}
 					autoFocus={true}
 				/>
@@ -65,7 +66,7 @@ export default function Score(props: ScoreProps): JSX.Element {
 		}
 		else {
 			return (
-				<div className="name">{name}</div>
+				<div data-testid="name" className="name">{name}</div>
 			)
 		}
 	}

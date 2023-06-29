@@ -1,6 +1,6 @@
 import './App.scss';
-import { defaultMapLevel } from "./utils/mapData"
-import { mapGenerator } from './utils/mapGenerator';
+import { defaultMapLevel } from "./data/mapData"
+import { MapGenerator } from './utils/mapGenerator';
 import { useSelector } from 'react-redux';
 import { rootState } from './redux/store';
 import { useState } from 'react';
@@ -20,7 +20,7 @@ function App() {
   const mute = useSelector((state: rootState) => state.gameState.mute)
 
   // Get myMap
-  let myMap = new mapGenerator(defaultMapLevel, 8, 8);
+  let myMap = new MapGenerator(defaultMapLevel, 8, 8);
   myMap.addPlayersMap(15);
   myMap.onePlayerMap();
 
