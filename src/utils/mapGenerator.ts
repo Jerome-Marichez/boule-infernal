@@ -5,8 +5,9 @@
 /* 3 = goal block */
 /* 4 = player  */
 
+import { Level } from "../sharedTypes/map";
 export class MapGenerator {
-	level: Array<number>;
+	level: Level;
 	numberWall: number;
 	numberGoal: number;
 	numberMaxWall: number;
@@ -32,7 +33,7 @@ export class MapGenerator {
 	 */
 
 	constructor(
-		defaultMapLevel: Array<number>,
+		defaultMapLevel: Level,
 		numberMaxWall: number,
 		numberMaxGoal: number
 	) {
@@ -50,13 +51,13 @@ export class MapGenerator {
 	 */
 	generateMapLevel() {
 		this.level = this.level.map((value) => {
+			// Do not replace green blocks in the map level.
+			if (value === 1) return value;
+
 			// Random a number
 			const randomNumber = Math.round(Math.random() * 50);
 
-			// Do not replace green blocks in the default map level.
-			if (value === 1 || randomNumber === 1) return value;
-
-			// Do not generate wall blocks if the maximum number of wall blocks has been reached.
+			// Do not generate wall blocks if it reach maximum number of wall blocks has been reached.
 			if (randomNumber === 2 && this.numberWall < this.numberMaxWall) {
 				this.numberWall++;
 				return randomNumber;
@@ -71,21 +72,21 @@ export class MapGenerator {
 			return value;
 		});
 
-		// Avoid that in the map previous block is the same if it's a goal block or wall block
+		// Ensure that the previous block in the map cannot be a goal or wall if it is currently a goal or wall block.
 		return this.level = this.level.map((value, index, array) => {
+
 			const previousValue = array[index - 1];
-			if (value === 1 || value === 0) {
-				return value;
-			}
 			if (previousValue === 2 || previousValue === 3) {
 				if (value === 2) {
 					this.numberWall--;
+					return 0;
 				}
 				if (value === 3) {
 					this.numberGoal--;
+					return 0;
 				}
-				return 0;
 			}
+
 			return value;
 		});
 

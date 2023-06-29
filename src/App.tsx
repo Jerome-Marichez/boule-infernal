@@ -1,5 +1,5 @@
 import './App.scss';
-import { defaultMapLevel } from "./utils/mapData"
+import { defaultMapLevel } from "./data/mapData"
 import { MapGenerator } from './utils/mapGenerator';
 import { useSelector } from 'react-redux';
 import { rootState } from './redux/store';
