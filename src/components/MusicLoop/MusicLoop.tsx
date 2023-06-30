@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import useKey from "@accessible/use-key"
 import useClickRef from "../../hook/useClickRef";
 
@@ -18,10 +18,14 @@ export function MusicLoop({ music, mute }: MusicLoopProps): JSX.Element {
 
 	const [interaction, setInteraction] = useState<boolean>(false);
 	const audioRef = useRef<HTMLAudioElement>(null);
-	const [aboveX, belowX] = useClickRef(audioRef);
-
 	
-	if (aboveX || belowX) { setInteraction(true) }
+	useEffect(() => {
+		document.addEventListener('click', () => setInteraction(true));
+
+		return () => {
+			document.removeEventListener('click', () => setInteraction(true));
+		};
+	},)
 
 	useKey(window, {
 		ArrowUp: () => setInteraction(true),

@@ -26,13 +26,15 @@ export function Player(props: PlayerProps): JSX.Element {
 	const { topPosition, leftPosition, pixelSize, setKeyPressed, sound } = props;
 	const mute = useSelector((state: rootState) => state.gameState.mute)
 	const playerRef = useRef<HTMLDivElement>(null);
-	const [aboveX, belowX] = useClickRef(playerRef);
+	const [aboveY, belowY] = useClickRef(playerRef);
 
 
-	if (aboveX) { setKeyPressed('Down') }
-	if (belowX) { setKeyPressed('Up') }
+	useEffect(() => {
+		if (belowY) { setKeyPressed('Up') }
+		if (aboveY) { setKeyPressed('Down') }
+	}, [aboveY, belowY, setKeyPressed])
 
-	
+
 	useKey(window, {
 		ArrowUp: () => setKeyPressed("Up"),
 		ArrowDown: () => setKeyPressed("Down"),

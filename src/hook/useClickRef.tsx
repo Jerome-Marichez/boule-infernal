@@ -21,7 +21,7 @@ export default function useClickRef(elementRef: React.RefObject<any>) {
 			const elementRefY = elementRef.current.getBoundingClientRect().y;
 			const elementRefX = elementRef.current.getBoundingClientRect().x;
 
-			if (elementRefY < event.y) {
+			if (elementRefY > event.y) {
 				setAboveY(true);
 				setBelowY(false);
 			} else {
@@ -29,7 +29,7 @@ export default function useClickRef(elementRef: React.RefObject<any>) {
 				setBelowY(true);
 			}
 
-			if (elementRefX < event.x) {
+			if (elementRefX > event.x) {
 				setAboveX(true);
 				setBelowX(false);
 			}
