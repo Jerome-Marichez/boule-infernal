@@ -1,9 +1,9 @@
 import "./Player.scss"
 import useKey from '@accessible/use-key'
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { rootState } from "../../redux/store";
-
+import useClickRef from "../../hook/useClickRef";
 
 interface PlayerProps {
 	topPosition: number;
@@ -25,10 +25,17 @@ export function Player(props: PlayerProps): JSX.Element {
 
 	const { topPosition, leftPosition, pixelSize, setKeyPressed, sound } = props;
 	const mute = useSelector((state: rootState) => state.gameState.mute)
+	const playerRef = useRef<HTMLDivElement>(null);
+	const [aboveX, belowX] = useClickRef(playerRef);
 
+
+	if (aboveX) { setKeyPressed('Down') }
+	if (belowX) { setKeyPressed('Up') }
+
+	
 	useKey(window, {
-		ArrowUp: (event) => setKeyPressed("Up"),
-		ArrowDown: (event) => setKeyPressed("Down"),
+		ArrowUp: () => setKeyPressed("Up"),
+		ArrowDown: () => setKeyPressed("Down"),
 	})
 
 	useEffect(() => {
@@ -45,7 +52,7 @@ export function Player(props: PlayerProps): JSX.Element {
 
 
 	return (
-		<div className="player" role="img" style={
+		<div className="player" role="img" ref={playerRef} style={
 			{
 				height: `${pixelSize}px`,
 				width: `${pixelSize}px`,
