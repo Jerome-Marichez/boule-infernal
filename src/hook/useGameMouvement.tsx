@@ -63,7 +63,9 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 				}
 
 				if (verticalBlock === 3 || horizontalBlock === 3 || verticalBlock2 === 3) {
-					newMoveMap[playerIndex + playerDirection * 2] = 0;
+					if (newMoveMap[playerIndex + playerDirection * 2] !== 1) {
+						newMoveMap[playerIndex + playerDirection * 2] = 0;
+					}
 					setBlockHit("goal");
 				}
 
