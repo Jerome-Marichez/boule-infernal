@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import useKey from "@accessible/use-key"
-import useClickRef from "../../hook/useClickRef";
 
 interface MusicLoopProps {
 	music: "gameover" | "theme",
