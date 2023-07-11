@@ -21,6 +21,7 @@ interface PlayerProps {
  * @param sound  A .wav to be play if available in this folder component
  * @returns A player component displayed in the game.
  */
+
 export function Player(props: PlayerProps): JSX.Element {
 
 	const { topPosition, leftPosition, pixelSize, setKeyPressed, sound } = props;
@@ -28,12 +29,11 @@ export function Player(props: PlayerProps): JSX.Element {
 	const playerRef = useRef<HTMLDivElement>(null);
 	const [aboveY, belowY] = useClickRef(playerRef);
 
-
+	
 	useEffect(() => {
-		if (belowY) { setKeyPressed('Up') }
 		if (aboveY) { setKeyPressed('Down') }
+		if (belowY) { setKeyPressed('Up') }
 	}, [aboveY, belowY, setKeyPressed])
-
 
 	useKey(window, {
 		ArrowUp: () => setKeyPressed("Up"),
