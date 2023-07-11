@@ -8,6 +8,18 @@
 	background-color: $bg_color_highscore;
 	color: $color1;
 	font-size: 30px;
+	opacity: 0;
+	animation: show 10s forwards;
+
+	@keyframes show {
+		from {
+			opacity: 0;
+		}
+
+		to {
+			opacity: 1;
+		}
+	}
 
 	.one_line {
 		display: flex;
@@ -20,7 +32,7 @@
 		flex-direction: row;
 	}
 
-	
+
 
 	@mixin changeColorInfinite($fromColor, $toColor) {
 		animation: color-#{$fromColor}-#{$toColor} 0.75s infinite alternate;

@@ -1,9 +1,9 @@
 import "./Player.scss"
 import useKey from '@accessible/use-key'
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { rootState } from "../../redux/store";
-
+import useClickRef from "../../hook/useClickRef";
 
 interface PlayerProps {
 	topPosition: number;
@@ -21,14 +21,23 @@ interface PlayerProps {
  * @param sound  A .wav to be play if available in this folder component
  * @returns A player component displayed in the game.
  */
+
 export function Player(props: PlayerProps): JSX.Element {
 
 	const { topPosition, leftPosition, pixelSize, setKeyPressed, sound } = props;
 	const mute = useSelector((state: rootState) => state.gameState.mute)
+	const playerRef = useRef<HTMLDivElement>(null);
+	const [aboveY, belowY] = useClickRef(playerRef);
+
+	
+	useEffect(() => {
+		if (aboveY) { setKeyPressed('Down') }
+		if (belowY) { setKeyPressed('Up') }
+	}, [aboveY, belowY, setKeyPressed])
 
 	useKey(window, {
-		ArrowUp: (event) => setKeyPressed("Up"),
-		ArrowDown: (event) => setKeyPressed("Down"),
+		ArrowUp: () => setKeyPressed("Up"),
+		ArrowDown: () => setKeyPressed("Down"),
 	})
 
 	useEffect(() => {
@@ -45,7 +54,7 @@ export function Player(props: PlayerProps): JSX.Element {
 
 
 	return (
-		<div className="player" role="img" style={
+		<div className="player" role="img" ref={playerRef} style={
 			{
 				height: `${pixelSize}px`,
 				width: `${pixelSize}px`,

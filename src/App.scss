@@ -1,15 +1,23 @@
-body, input {
-  font-family: font;
-  margin: 0;
-  background-color: black;
+body,
+input {
+	font-family: font;
+	margin: 0;
+	background-color: black;
 }
 
 @font-face {
-  font-family: font;
-  src: url(font.ttf);
+	font-family: font;
+	src: url(font.ttf);
 }
 
 .center {
-  display: flex;
-  justify-content: center;
+	display: flex;
+	justify-content: center;
+
+	@media (max-width: 700px) {
+		min-height: 90vh;
+		height: 100%;
+		align-items: center;
+	}
+
 }

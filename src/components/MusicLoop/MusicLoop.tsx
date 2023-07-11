@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import useKey from "@accessible/use-key"
 
 interface MusicLoopProps {
@@ -16,6 +16,15 @@ interface MusicLoopProps {
 export function MusicLoop({ music, mute }: MusicLoopProps): JSX.Element {
 
 	const [interaction, setInteraction] = useState<boolean>(false);
+	const audioRef = useRef<HTMLAudioElement>(null);
+	
+	useEffect(() => {
+		document.addEventListener('click', () => setInteraction(true));
+
+		return () => {
+			document.removeEventListener('click', () => setInteraction(true));
+		};
+	},)
 
 	useKey(window, {
 		ArrowUp: () => setInteraction(true),
@@ -24,7 +33,7 @@ export function MusicLoop({ music, mute }: MusicLoopProps): JSX.Element {
 
 	if (interaction) {
 		return (
-			<audio data-testid="audio" autoPlay loop muted={mute} key={music}>
+			<audio ref={audioRef} data-testid="audio" autoPlay loop muted={mute} key={music}>
 				<source data-testid="source" src={require(`./${music}.mp3`)} type="audio/mp3" />
 			</audio>
 		)
