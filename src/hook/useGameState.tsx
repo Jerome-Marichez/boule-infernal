@@ -28,7 +28,7 @@ export default function useGameState(block: "empty" | "green" | "wall" | "goal",
 		}
 		if (score === numberGoal + maxScore) {
 			dispatch(setMaxScore(maxScore + numberGoal))
-			dispatch(setSpeed(speed - 2))
+			dispatch(setSpeed(speed - 3))
 		}
 	}, [block])
 
