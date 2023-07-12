@@ -20,16 +20,20 @@ export default function useGameState(block: "empty" | "green" | "wall" | "goal",
 
 
 	useEffect(() => {
-		if (block === "goal" && gameOver !== true) {
-			dispatch(setScore(score + 1));
-		}
-		if (block === "wall") {
-			dispatch(setGameOver(true))
-		}
-		if (score === numberGoal + maxScore) {
-			dispatch(setMaxScore(maxScore + numberGoal))
-			dispatch(setSpeed(speed - 3))
-		}
+		switch (block) {
+			case "goal":
+				dispatch(setScore(score + 1));
+				break;
+			case "wall":
+				dispatch(setGameOver(true))
+				break;
+			default:
+				if (score === numberGoal + maxScore) {
+					dispatch(setMaxScore(maxScore + numberGoal))
+					dispatch(setSpeed(speed - 3))
+				}
+				break;
+		}	
 	}, [block])
 
 
