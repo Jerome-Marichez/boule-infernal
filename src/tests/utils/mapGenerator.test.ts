@@ -1,7 +1,7 @@
 import { MapGenerator } from "../../utils/mapGenerator";
 import { defaultMapLevel } from "../../data/mapData";
 import { Level } from "../../sharedTypes/map";
-import { badMapMock } from "./badMapMock";
+import { badMapLevelMock } from '../mock/mapMock';
 
 describe('MapGenerator Class', () => {
 	const numberMaxWall: number = 30;
@@ -41,7 +41,7 @@ describe('MapGenerator Class', () => {
 		const { level: firstLevel } = new MapGenerator(defaultMapLevel, numberMaxWall, numberMaxGoal);
 		expect(checkDoubleBlock(firstLevel)).toBeFalsy();
 
-		const { level: secondLevel } = new MapGenerator(badMapMock, numberMaxWall, numberMaxGoal);
+		const { level: secondLevel } = new MapGenerator(badMapLevelMock, numberMaxWall, numberMaxGoal);
 		expect(checkDoubleBlock(secondLevel)).toBeFalsy();
 	})
 

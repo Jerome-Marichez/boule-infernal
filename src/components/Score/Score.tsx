@@ -76,7 +76,7 @@ export default function Score(props: ScoreProps): JSX.Element {
 			<div className={isItActualPlayer ? 'player_score' : ''}>
 				{displayInputScore(isItActualPlayer)}
 			</div>
-			<div className="score">{score}</div>
+			<div data-testid="score" className="score">{score}</div>
 		</div >
 	)
 }
