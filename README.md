@@ -1,46 +1,46 @@
-# Getting Started with Create React App
+# Boule Infernal
+- Boule Infernal - Remake of game "Boule Infernal" in React
+- Play the game here: https://boule-infernal.vercel.app/
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of Contents
+- [Introduction](#introduction)
+- [Prerequisites](#introduction)
+- [Technologies](#technologies)
+- [Installation](#installation)
 
-## Available Scripts
+## Introduction
 
-In the project directory, you can run:
+- The Infernal Ball is a game where the goal is to achieve the highest possible score. The ball must dodge the walls and collect the goals.
 
-### `npm start`
+- The controls are the "Up/Down" keyboard keys on a computer and mouse clicks above or below the ball for the mobile version.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- This game is a remake of a game released on Amstrad.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- The project is entirely coded in React and includes unit tests that cover the project (Jest), as well as a test of these tests using a code mutation tool (StrykerJS) to ensure reliability and quality.
 
-### `npm test`
+- The scores are saved online using SupaBase.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<img src="https://user-images.githubusercontent.com/62617561/253261547-94f9bff0-7306-478a-9b89-7e76d4ff93a4.png" />
+<img src="https://user-images.githubusercontent.com/62617561/253261577-dffa75c2-bdc2-4292-8d43-33ecc3443b9a.jpg" />
 
-### `npm run build`
+## Technologies 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- <img src="https://user-images.githubusercontent.com/25181517/183897015-94a058a6-b86e-4e42-a37f-bf92061753e5.png" width="24"/> React
+- <img src="https://user-images.githubusercontent.com/25181517/183890598-19a0ac2d-e88a-4005-a8df-1ee36782fde1.png" width="24"/> TypeScript
+- <img src="https://icons-for-free.com/iconfiles/png/512/end+long+shadow+preprocesor+sass+web+icon-1320184849915610733.png" width="24"/> SASS
+- <img src="https://www.svgrepo.com/show/353930/jest.svg" width="24"/> Jest
+- <img src="https://stryker-mutator.io/images/stryker.svg" width="24"/> StrykerJS
+- <img src="https://cf.appdrag.com/dashboard-openvm-clo-b2d42c/uploads/supabase-TAiY.png" width="24"/> SupaBase
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Prerequisites
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- [NodeJS (**version 14 or higher**)](https://nodejs.org/en/)
+- [npm](https://www.npmjs.com/)
 
-### `npm run eject`
+## Installation 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Clone the present repo .
+- In the directory of the cloned repo, install its dependencies: `npm install`.
+- Launch the project: `npm run start`.
+- For run tests with jest: `npm test -- --coverage` 
+- For test our tests with mutation testing: `stryker run` 
