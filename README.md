@@ -12,7 +12,7 @@
 
 - The Infernal Ball is a game where the goal is to achieve the highest possible score. The ball must dodge the walls and collect the goals.
 
-- The controls are the "Up/Down" keyboard keys on a computer and mouse clicks above or below the ball for the mobile version.
+- The controls are the "Up/Down" keyboard keys on a computer and clicks above or below the ball for the mobile version.
 
 - This game is a remake of a game released on Amstrad.
 
