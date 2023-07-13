@@ -46,7 +46,7 @@ export default function Game(props: GameProps): JSX.Element {
 	return (
 		<>
 			<SoundControl />
-			<div className={gameOver ? "game dead" : "game"} style={{
+			<div data-testid="game" className={gameOver ? "game dead" : "game"} style={{
 				width: `${widthGame}px`,
 				height: `${heightGame}px`,
 				padding: `${topStart}px`,

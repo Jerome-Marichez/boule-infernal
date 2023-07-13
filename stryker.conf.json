@@ -3,6 +3,14 @@
   "_comment": "This config was generated using 'stryker init'. Please see the guide for more information: https://stryker-mutator.io/docs/stryker-js/guides/react",
   "testRunner": "jest",
   "tempDirName": "stryker-tmp",
+  "mutate": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "!src/**/*.module.ts",
+    "!src/hook/**/*.tsx",
+    "!src/tests/**/*.tsx",
+    "!src/tests/**/*.ts"
+  ],
   "reporters": [
     "progress",
     "clear-text",

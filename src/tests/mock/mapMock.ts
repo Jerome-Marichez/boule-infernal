@@ -3,13 +3,9 @@
 /* 2 = wall block */
 /* 3 = goal block */
 /* 4 = player  */
-interface mapMock {
-	level: Array<number>,
-	numberWall: number,
-	numberGoal: number
-}
+import { Level, Map } from "../../sharedTypes/map"
 
-export const myMapMock: mapMock = {
+export const goodMapMock: Map = {
 	level: [
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 		1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 1,
@@ -41,3 +37,21 @@ export const myMapMock: mapMock = {
 	numberWall: 5,
 	numberGoal: 5
 }
+
+export const badMapMock: Map = {
+	level: [
+		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+		1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1,
+		1, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+	]
+	,
+	numberWall: 5,
+	numberGoal: 5
+}
+
+export const badMapLevelMock: Level = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 1,
+	1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,]
+
