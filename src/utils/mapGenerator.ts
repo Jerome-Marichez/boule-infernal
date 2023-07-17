@@ -55,7 +55,7 @@ export class MapGenerator {
 			if (value === 1) return value;
 
 			// Random a number
-			const randomNumber = Math.round(Math.random() * 50);
+			const randomNumber = Math.round(Math.random() * 40);
 
 			// Do not generate wall blocks if it reach maximum number of wall blocks has been reached.
 			if (randomNumber === 2 && this.numberWall < this.numberMaxWall) {
@@ -72,11 +72,20 @@ export class MapGenerator {
 			return value;
 		});
 
-		// Ensure that the previous block in the map cannot be a goal or wall if it is currently a goal or wall block.
+		// Ensure that the previous or next block in the map cannot be a goal or wall if it is currently a goal or wall block.
+		// Check too that a goal can't have a goal above him
 		return this.level = this.level.map((value, index, array) => {
+			const [previousValue, previousValueDouble] = [array[index - 1], array[index - 2]];
+			const [aboveGoalLeft, aboveGoalTop, aboveGoalRight] = [array[index - 16], array[index - 15], array[index - 14]];
+			const [nextValue, nextValueDouble] = [array[index + 1], array[index + 2]];
 
-			const previousValue = array[index - 1];
-			if (previousValue === 2 || previousValue === 3) {
+			const isPreviousValueGoalOrWall = previousValue === 2 || previousValue === 3;
+			const isNextValueGoalOrWall = nextValue === 2 || nextValue === 3;
+			const isPreviousValueDoubleGoalOrWall = previousValueDouble === 2 || previousValueDouble === 3;
+			const isNextValueDoubleGoalOrWall = nextValueDouble === 2 || nextValueDouble === 3;
+			const isAboveGoal = aboveGoalLeft === 3 || aboveGoalRight === 3 || aboveGoalTop === 3;
+
+			if (isPreviousValueGoalOrWall || isNextValueGoalOrWall || isPreviousValueDoubleGoalOrWall || isNextValueDoubleGoalOrWall) {
 				if (value === 2) {
 					this.numberWall--;
 					return 0;
@@ -87,9 +96,16 @@ export class MapGenerator {
 				}
 			}
 
+			if (isAboveGoal && value === 3) {
+				this.numberGoal--;
+				return 0;
+			}
+
 			return value;
 		});
 
+
+		//
 	}
 
 	/**
