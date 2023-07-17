@@ -16,12 +16,12 @@
 
 - This game is a remake of a game released on Amstrad.
 
-- The project is entirely coded in React and includes unit tests that cover the project (Jest), as well as a test of these tests using a code mutation tool (StrykerJS) to ensure reliability and quality.
+- The project is entirely coded in React and includes unit tests that cover the project (Jest with 90% coverage), as well as a test of these tests using a code mutation tool (StrykerJS with 70% coverage) to ensure reliability and quality.
 
 - The scores are saved online using SupaBase.
 
-<img src="https://user-images.githubusercontent.com/62617561/253261547-94f9bff0-7306-478a-9b89-7e76d4ff93a4.png" />
-<img src="https://user-images.githubusercontent.com/62617561/253261577-dffa75c2-bdc2-4292-8d43-33ecc3443b9a.jpg" />
+![Capture d’écran 2023-07-17 114613](https://github.com/Jerome-Marichez/boule-infernal/assets/62617561/651cb6b7-f5fd-4d03-a171-5a0182463962)
+![Capture d’écran 2023-07-17 114419](https://github.com/Jerome-Marichez/boule-infernal/assets/62617561/77c6af9f-e33c-4c3e-b8ac-72f1d4fac0d2)
 
 ## Technologies 
 
