@@ -20,7 +20,15 @@ function App() {
   const mute = useSelector((state: rootState) => state.gameState.mute)
 
   // Get myMap
-  let myMap = new MapGenerator(defaultMapLevel, 8, 8);
+  let myMap = new MapGenerator(defaultMapLevel, 10, 10);
+  let a = 1;
+  while (a === 1) {
+    if (myMap.numberWall > myMap.numberMaxWall / 2 && myMap.numberGoal > myMap.numberMaxGoal  / 2) {
+      a = 0;
+    } else {
+      myMap = new MapGenerator(defaultMapLevel, 10, 10);
+    }
+  }
   myMap.addPlayersMap(15);
   myMap.onePlayerMap();
 
