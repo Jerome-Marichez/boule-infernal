@@ -4,8 +4,8 @@
 
 ## Table of Contents
 - [Introduction](#introduction)
-- [Prerequisites](#introduction)
 - [Technologies](#technologies)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
 
 ## Introduction
