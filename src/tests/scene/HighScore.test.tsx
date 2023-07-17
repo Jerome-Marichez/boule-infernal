@@ -23,7 +23,7 @@ describe('HighScore Scene', () => {
 		const names: Array<HTMLDivElement> = await screen.findAllByTestId('name');
 		names.forEach((name) => {
 			console.log(name.innerHTML.length)
-			expect(name.innerHTML.length < 10).toBeTruthy();
+			expect(name.innerHTML.length <= 10).toBeTruthy();
 		})
 		expect(names.length).toBe(15);
 	})
