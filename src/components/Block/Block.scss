@@ -8,7 +8,8 @@
 }
 
 .green {
-	border: 2px solid green;
+	background-image: url("./Rock.jpg");
+	object-fit: cover;
 }
 
 .wall {
@@ -17,6 +18,6 @@
 }
 
 .goal {
-	background-image: url("./Goal.jpg");
+	background-image: url("./Goal.png");
 	object-fit: cover;
 }
