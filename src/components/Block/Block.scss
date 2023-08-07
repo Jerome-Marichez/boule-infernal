@@ -15,36 +15,28 @@
 		background-image: url("./Rock.jpg");
 	}
 
-	&:first-child,
-	&:last-child,
-	&:nth-child(15),
-	&:nth-last-child(15) {
-		background-size: contain;
-		background-image: url("./Rock.jpg");
-		z-index: 1;
-
-		&::after {
-			z-index: 2;
-			content: "";
-			background-image: url("./BigRock.png");
-			background-size: contain;
-			background-repeat: no-repeat;
-			width: 28px;
-			height: 28px;
-			top: -7px;
-			margin-left: -3px;
-			bottom: 0;
-			position: absolute;
-		}
+	&:first-child {
+		background-image: url("./corner_haut_gauche.jpg");
 	}
 
+	&:nth-child(15) {
+		background-image: url("./corner_haut_droite.jpg");
+	}
+
+	&:nth-last-child(15) {
+		background-image: url("./corner_bas_gauche.jpg");
+	}
+
+	&:last-child {
+		background-image: url("./corner_bas_droite.jpg");
+	}
 
 
 	object-fit: cover;
 }
 
 .wall {
-	background-image: url("./Wall.jpg");
+	background-image: url("./Wall.png");
 	object-fit: cover;
 }
 
