@@ -15,6 +15,31 @@
 		background-image: url("./Rock.jpg");
 	}
 
+	&:first-child,
+	&:last-child,
+	&:nth-child(15),
+	&:nth-last-child(15) {
+		background-size: contain;
+		background-image: url("./Rock.jpg");
+		z-index: 1;
+
+		&::after {
+			z-index: 2;
+			content: "";
+			background-image: url("./BigRock.png");
+			background-size: contain;
+			background-repeat: no-repeat;
+			width: 28px;
+			height: 28px;
+			top: -7px;
+			margin-left: -3px;
+			bottom: 0;
+			position: absolute;
+		}
+	}
+
+
+
 	object-fit: cover;
 }
 
