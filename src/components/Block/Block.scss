@@ -8,7 +8,13 @@
 }
 
 .green {
-	background-image: url("./Rock.jpg");
+	background-image: url("./Rock2.jpg");
+
+	&:nth-last-child(-n+15),
+	&:nth-child(-n+15) {
+		background-image: url("./Rock.jpg");
+	}
+
 	object-fit: cover;
 }
 
