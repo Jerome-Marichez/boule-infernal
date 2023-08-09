@@ -8,19 +8,19 @@
 }
 
 .green {
-	background-image: url("./Rock2.jpg");
+	background-image: url("./RockVertical.jpg");
 
 	&:nth-last-child(-n+15),
 	&:nth-child(-n+15) {
-		background-image: url("./Rock.jpg");
+		background-image: url("./RockHorizontal.jpg");
 	}
 
 	&:first-child {
-		background-image: url("./corner_haut_gauche_v2.jpg");
+		background-image: url("./corner_haut_gauche.jpg");
 	}
 
 	&:nth-child(15) {
-		background-image: url("./corner_haut_droite_v2.jpg");
+		background-image: url("./corner_haut_droite.jpg");
 	}
 
 	&:nth-last-child(15) {
