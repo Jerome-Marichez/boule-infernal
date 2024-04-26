@@ -30,14 +30,18 @@ export function Player(props: PlayerProps): JSX.Element {
 	const [aboveY, belowY] = useClickRef(playerRef);
 
 	
+	// Mobile Control 
 	useEffect(() => {
 		if (aboveY) { setKeyPressed('Down') }
 		if (belowY) { setKeyPressed('Up') }
 	}, [aboveY, belowY, setKeyPressed])
 
+	// Keyboard Control 
 	useKey(window, {
 		ArrowUp: () => setKeyPressed("Up"),
 		ArrowDown: () => setKeyPressed("Down"),
+		z: () => setKeyPressed("Up"), 
+		s: () => setKeyPressed("Down"),
 	})
 
 	useEffect(() => {
