@@ -1,5 +1,5 @@
 import "./Game.scss";
-import { Block, Player, SoundControl } from '../components';
+import { Block, Player, SoundControl, ScoreControl } from '../components';
 import useGameMovement from "../hook/useGameMouvement";
 import useGameState from "../hook/useGameState";
 import { useEffect } from "react";
@@ -45,6 +45,7 @@ export default function Game(props: GameProps): JSX.Element {
 
 	return (
 		<>
+			<ScoreControl />
 			<SoundControl />
 			<div data-testid="game" className={gameOver ? "game dead" : "game"} style={{
 				width: `${widthGame}px`,
