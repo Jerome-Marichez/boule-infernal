@@ -4,6 +4,7 @@ export interface gameState {
 	gameOver: boolean, 
 	speed: number, 
 	mute: boolean, 
+	forceRender: number,
 }
 
 export const initialState: gameState = {
@@ -12,4 +13,5 @@ export const initialState: gameState = {
 	gameOver: false,
 	speed: 70,  
 	mute: true,
+	forceRender: 0,
 };

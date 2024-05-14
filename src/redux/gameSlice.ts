@@ -29,6 +29,10 @@ export const gameSlice = createSlice({
 
 		setMute: (state: gameState, action: PayloadAction<boolean>) => {
 			state.mute = action.payload; 
+		},
+
+		setForceRender: (state: gameState, action: PayloadAction<number>) => {
+			state.forceRender = action.payload; 
 		}
 	},
 });
@@ -36,6 +40,6 @@ export const gameSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { setScore, setMaxScore, setSpeed, setGameOver, setMute } = gameSlice.actions;
+export const { setScore, setMaxScore, setSpeed, setGameOver, setMute, setForceRender } = gameSlice.actions;
 
 export default gameSlice.reducer;

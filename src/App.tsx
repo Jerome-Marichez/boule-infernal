@@ -18,6 +18,8 @@ function App() {
   const speed = useSelector((state: rootState) => state.gameState.speed)
   const gameOver = useSelector((state: rootState) => state.gameState.gameOver)
   const mute = useSelector((state: rootState) => state.gameState.mute)
+  const forceRender = useSelector((state: rootState) => state.gameState.forceRender) 
+
 
   // Get myMap
   let myMap = new MapGenerator(defaultMapLevel, 10, 10);
@@ -43,7 +45,7 @@ function App() {
       {displayHighScore ?
         <HighScore />
         :
-        <Game heightGame={500} widthGame={300} map={myMap} speed={speed} key={speed} />
+        <Game heightGame={500} widthGame={300} map={myMap} speed={speed} key={forceRender} />
       }
     </div>
   );
