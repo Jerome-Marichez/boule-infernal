@@ -2,7 +2,7 @@
 import "./Score.scss";
 import { useState } from "react";
 import useKey from "@accessible/use-key";
-import { connectSupaBase, insertScore } from "../../data/supabase";
+import { SupaBaseClient } from "../../services/supabase";
 import { regexUser } from "../../utils/regex";
 import { ScoreObject } from "../../sharedTypes/score";
 
@@ -23,7 +23,7 @@ export default function Score(props: ScoreProps): JSX.Element {
 
 	const { score, isItActualPlayer } = props;
 	const [name, setName] = useState<string>(props.name);
-	
+
 	const [keyEnter, setKeyEnter] = useState<boolean>(false);
 	const [scoreSubmit, setScoreSubmit] = useState<boolean>(false);
 
@@ -31,26 +31,17 @@ export default function Score(props: ScoreProps): JSX.Element {
 		Enter: () => setKeyEnter(true),
 	})
 
-	const checkName = (name: string) => {
-		if (regexUser.test(name)) {
-			setName(name);
-		}
-
-		if (name.length === 0) {
-			setName("");
-		}
-	}
+	const checkName = (name: string) => (regexUser.test(name)) ? setName(name) : setName("");
 
 	const registerScore = async () => {
 		if (!scoreSubmit) {
-			const connection: any = await connectSupaBase();
-			await insertScore(connection, { name: name, score: score });
+			const client = new SupaBaseClient();
+			await client.insertScore({ name: name, score: score });
 			setScoreSubmit(true);
 		}
 	}
 
-	if (keyEnter && isItActualPlayer) { registerScore(); }
-
+	if (keyEnter && isItActualPlayer) registerScore();
 
 	const displayInputScore = (isItActualPlayer: boolean) => {
 		if (isItActualPlayer) {

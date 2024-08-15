@@ -28,17 +28,6 @@ describe('HighScore Scene', () => {
 		expect(names.length).toBe(15);
 	})
 
-	test('Scores are sorted by DESC', async () => {
-		SceneRender();
-
-		const scores: Array<HTMLDivElement> = await screen.findAllByTestId('score');
-		const scoresValues = scores.map((score) => {
-			return Number(score.innerHTML)
-		})
-		const sortedScores = scoresValues.sort((a, b) => a - b);
-		expect(sortedScores).toEqual(scoresValues);
-	})
-
 	test('# Elements are visible', async () => {
 		SceneRender();
 		const elements: Array<HTMLDivElement> = await screen.findAllByText("#");

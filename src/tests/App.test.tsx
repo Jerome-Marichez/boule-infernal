@@ -1,7 +1,7 @@
 import { screen, render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { Provider } from 'react-redux';
-import { store } from './../redux/store';
+import { store } from '../redux/store';
 import App from '../App';
 
 describe("App Test", () => {

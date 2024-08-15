@@ -1,10 +1,10 @@
 import "./HighScore.scss";
-import { connectSupaBase, readScore } from "../data/supabase";
+import { SupaBaseClient } from "../services/supabase";
 import { useEffect, useState } from "react";
 import Score from "../components/Score/Score";
 import { useSelector } from "react-redux";
 import { rootState } from "../redux/store";
-import { Scores } from "../sharedTypes/score";
+import { ScoreObject, Scores } from "../sharedTypes/score";
 
 
 export default function HighScore(): JSX.Element {
@@ -16,33 +16,37 @@ export default function HighScore(): JSX.Element {
 	const [allHighScore, setAllHighScore] = useState<Scores>([]);
 
 	const loadAllScores = async () => {
-		const connection: any = await connectSupaBase();
-		const readScores: any = await readScore(connection);
-		setAllHighScore(readScores);
+		const client = new SupaBaseClient();
+		setAllHighScore(await client.readScore());
 	}
 
-	useEffect(() => {
-		loadAllScores();
-	}, [])
+	useEffect(() => { loadAllScores(); }, [])
 
-	const topHighScore = allHighScore.sort((a, b) => a.score - b.score).reverse().slice(0, 15);
+	const topHighScores: Scores = [];
+	const uniquePlayerScore: ScoreObject['name'][] = [];
+
+	allHighScore
+		.sort((a, b) => a.score - b.score)
+		.reverse()
+		.slice(0, 50)
+		.forEach((score) => {
+			if (!uniquePlayerScore.includes(score.name)) {
+				uniquePlayerScore.push(score.name);
+				topHighScores.push(score);
+			}
+		})
+
 
 	// Recursive function generate "#"
-	const hashTag: any = (numberHashTag: number) => {
-		if (numberHashTag !== 0) {
-			return "#" + hashTag(numberHashTag - 1);
-		}
-		return "";
-	}
+	const hashTag = (numberHashTag: number) => (numberHashTag !== 0) ? "#" + hashTag(numberHashTag - 1) : "";
 
 	// Return Element Hash Tag 
 	const ElementHashTag = (hashTaglist: String) => {
 		const p = hashTaglist.split("");
 		return p.map((value: string, index: number) => {
 			const isInteger = Number.isInteger(index / 2);
-			if (isInteger) {
-				return <div key={index} className="color1">#</div>
-			}
+
+			if (isInteger) return <div key={index} className="color1">#</div>
 			return <div key={index} className="color2">#</div>
 		});
 	}
@@ -66,14 +70,14 @@ export default function HighScore(): JSX.Element {
 			</div>
 			<div className="one_line">
 				<div className="group">{ElementHashTag(hashTag(3))}</div>
-				<Score name={"Name"} score={myScore} isItActualPlayer={true} key={topHighScore.length + 1} />
+				<Score name={"Name"} score={myScore} isItActualPlayer={true} key={topHighScores.length + 1} />
 				<div className="group">{ElementHashTag(hashTag(3))}</div>
 			</div>
-			{topHighScore.map((value, index) => {
+			{topHighScores.slice(0, 15).map((value, index) => {
 				return (
 					<div className="one_line">
 						<div className="group">{ElementHashTag(hashTag(3))}</div>
-						<Score key={index} name={value.name.slice(0,10)} score={value.score} isItActualPlayer={false} />
+						<Score key={index} name={value.name.slice(0, 10)} score={value.score} isItActualPlayer={false} />
 						<div className="group">{ElementHashTag(hashTag(3))}</div>
 					</div>
 				)

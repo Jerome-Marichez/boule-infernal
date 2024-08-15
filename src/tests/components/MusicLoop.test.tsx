@@ -5,6 +5,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { MusicLoop } from '../../components';
 
 describe('MusicLoop component', () => {
+	
 	test('no render without interaction but empty fragment is here', async () => {
 		render(<MusicLoop music="gameover" mute={true} />);
 		let audioTag: HTMLElement | null = screen.queryByTestId('audio');
