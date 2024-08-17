@@ -50,17 +50,10 @@ export default function useGameMovement(mapLevel: Array<number>, blockPerLine: n
 				// Vertical / Horziontal Collision 
 				const verticalBlock = moveMap[playerIndex + playerDirection];
 				const verticalBlock2 = moveMap[playerIndex];
-				if (verticalBlock === 0 || horizontalBlock === 0 || verticalBlock2 === 0) {
-					setBlockHit("empty");
-				}
-
-				if (verticalBlock === 1 || horizontalBlock === 1 || verticalBlock2 === 1) {
-					setBlockHit("green");
-				}
-
-				if (verticalBlock === 2 || horizontalBlock === 2 || verticalBlock2 === 2) {
-					setBlockHit("wall");
-				}
+				
+				if (verticalBlock === 0 || horizontalBlock === 0 || verticalBlock2 === 0) setBlockHit("empty");
+				if (verticalBlock === 1 || horizontalBlock === 1 || verticalBlock2 === 1) setBlockHit("green");
+				if (verticalBlock === 2 || horizontalBlock === 2 || verticalBlock2 === 2) setBlockHit("wall");
 
 				if (verticalBlock === 3 || horizontalBlock === 3 || verticalBlock2 === 3) {
 					if (newMoveMap[playerIndex + playerDirection * 2] !== 1) {

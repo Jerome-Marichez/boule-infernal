@@ -18,7 +18,6 @@ describe("App Test", () => {
 		AppRender();
 		
 		const game = await screen.findByTestId('game');
-		console.log(game);
 		expect(game).toBeInTheDocument();
 	})
 })

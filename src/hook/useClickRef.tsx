@@ -29,9 +29,7 @@ export default function useClickRef(elementRef: React.RefObject<any>) {
 	useEffect(() => {
 		document.addEventListener('click', handleClickControl);
 
-		return () => {
-			document.removeEventListener('click', handleClickControl);
-		};
+		return () => document.removeEventListener('click', handleClickControl);
 	},)
 
 

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { rootState } from "../redux/store";
-import { setGameOver, setMaxScore, setScore, setSpeed, setForceRender} from "../redux/gameSlice";
+import { setGameOver, setMaxScore, setScore, setSpeed, setForceRender } from "../redux/gameSlice";
 
 
 /**
@@ -18,21 +18,17 @@ export default function useGameState(block: "empty" | "green" | "wall" | "goal",
 	const maxScore = useSelector((state: rootState) => state.gameState.maxScore)
 	const gameOver = useSelector((state: rootState) => state.gameState.gameOver)
 	const speed = useSelector((state: rootState) => state.gameState.speed)
-	
+
 
 
 	/** Force Render is a better way to trigger a new render of map */
-	if (moveMap.includes(3) === false) {
-		dispatch(setForceRender(Math.random()))
-	}
+	if (moveMap.includes(3) === false) dispatch(setForceRender(Math.random()))
 
 	useEffect(() => {
 		switch (block) {
-			case "goal":
-				dispatch(setScore(score + 1));
+			case "goal": dispatch(setScore(score + 1));
 				break;
-			case "wall":
-				dispatch(setGameOver(true))
+			case "wall": dispatch(setGameOver(true))
 				break;
 			default:
 				if (score === numberGoal + maxScore) {
@@ -40,7 +36,7 @@ export default function useGameState(block: "empty" | "green" | "wall" | "goal",
 					dispatch(setSpeed(speed - speedVelocity))
 				}
 				break;
-		}	
+		}
 	}, [block])
 
 

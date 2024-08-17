@@ -17,5 +17,5 @@ export function SoundControl(): JSX.Element {
 			Sound {mute ? "Off 🔇" : "On 🔊"}
 		</div>
 	);
-	
+
 }

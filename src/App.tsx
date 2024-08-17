@@ -20,7 +20,6 @@ function App() {
   const mute = useSelector((state: rootState) => state.gameState.mute)
   const forceRender = useSelector((state: rootState) => state.gameState.forceRender) 
 
-
   // Get myMap
   let myMap = new MapGenerator(defaultMapLevel, 10, 10);
   let a = 1;
@@ -31,12 +30,11 @@ function App() {
       myMap = new MapGenerator(defaultMapLevel, 10, 10);
     }
   }
+
   myMap.addPlayersMap(15);
   myMap.onePlayerMap();
 
-  if (gameOver) {
-    setTimeout(() => { setDisplayHighScore(true) }, 2000)
-  }
+  if (gameOver) setTimeout(() => { setDisplayHighScore(true) }, 2000)
 
   return (
     <div className="center">

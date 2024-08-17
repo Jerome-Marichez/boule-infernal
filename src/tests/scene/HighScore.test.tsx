@@ -37,6 +37,7 @@ describe('HighScore Scene', () => {
 	test('"Score Player Input" is visible and ensure that only text can be entered when submitting the score', async () => {
 		SceneRender();
 
+		// Defaut Score Player Input
 		const player = await screen.findByRole('textbox') as HTMLInputElement;
 		expect(player).toBeVisible();
 		expect(player).toBeEnabled();
@@ -44,34 +45,23 @@ describe('HighScore Scene', () => {
 
 		const user = userEvent.setup();
 
+		// Test that backspace work and only letter can be submit
 		await act(async () => {
-			await user.keyboard('[Backspace]');
-			await user.keyboard('[Backspace]');
-			await user.keyboard('[Backspace]');
-			await user.keyboard('[Backspace]');
-			await user.keyboard('0');
+			for (let i = 0; i < 4; i++) await user.keyboard('[Backspace]');
+
 			await user.keyboard('🍋');
 			await user.keyboard('*');
 		});
 		expect(player.value).toBe('');
 
-		await act(async () => {
-			await user.keyboard('J');
-			await user.keyboard('e');
-			await user.keyboard('s');
-			await user.keyboard('t');
-		});
+		// Test that set text as a player name work
+		await act(async () => await user.keyboard("Jest"))
 		expect(player.value).toBe('Jest');
 
 		// after pressing ENTER score is submit and then u can't modify name
-		await act(async () => {
-			await user.keyboard('[ENTER]');
-		});
-		await act(async () => {
-			await user.keyboard('t');
-		});
+		await act(async () => await user.keyboard('[ENTER]'));
+		await act(async () => await user.keyboard('t'));
 
 		expect(player.value).toBe('Jest');
-
 	})
 })

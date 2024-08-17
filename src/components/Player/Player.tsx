@@ -52,7 +52,7 @@ export function Player(props: PlayerProps): JSX.Element {
 			audio.play();
 		}
 		catch (e) {
-
+			console.error("Couldn't load music", e); 
 		}
 	}, [sound, mute])
 

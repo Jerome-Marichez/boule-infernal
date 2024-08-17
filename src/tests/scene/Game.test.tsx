@@ -69,7 +69,6 @@ describe('Game Scene', () => {
 		expect(blockGreen).toBeGreaterThan(15);
 		expect(player).toEqual(1);
 		expect(blockEmpty).toEqual(goodMapMock.level.length - totalBlock);
-
 	})
 
 
@@ -137,7 +136,7 @@ describe('Game Scene', () => {
 			const playerIndex = await findPlayer('player');
 			expect(playerIndex).toBeFalsy();
 		}, 2000)
-		
+
 
 	})
 
