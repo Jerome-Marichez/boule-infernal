@@ -1,6 +1,6 @@
 {
   "name": "boule-infernal",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@accessible/use-key": "^1.0.2",

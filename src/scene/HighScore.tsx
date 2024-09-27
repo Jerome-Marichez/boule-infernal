@@ -51,7 +51,7 @@ export default function HighScore(): JSX.Element {
 		});
 	}
 
-
+	
 	return (
 		<div className="highscore">
 			<div className="one_line">{ElementHashTag(hashTag(25))}</div>

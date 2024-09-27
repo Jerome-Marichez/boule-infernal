@@ -1,26 +1,4 @@
 .highscore {
-
-	// Mixin 
-	@mixin changeColorInfinite($fromColor, $toColor) {
-		animation: color-#{$fromColor}-#{$toColor} 0.75s infinite alternate;
-
-		@keyframes color-#{$fromColor}-#{$toColor} {
-			from {
-				color: $fromColor;
-			}
-
-			to {
-				color: $toColor;
-			}
-		}
-	}
-
-	// PlaceHolder 
-	%flexRow {
-		display: "flex";
-		flex-direction: "row";
-	}
-
 	$bg_color_highscore: black;
 	$color1: white;
 	$color2: yellow;
@@ -44,11 +22,31 @@
 	}
 
 	.one_line {
-		@extend %flexRow;
+		display: flex;
+		flex-direction: row;
 		justify-content: space-between;
 	}
 
-	.group { @extend %flexRow }
+	.group {
+		display: flex;
+		flex-direction: row;
+	}
+
+
+
+	@mixin changeColorInfinite($fromColor, $toColor) {
+		animation: color-#{$fromColor}-#{$toColor} 0.75s infinite alternate;
+
+		@keyframes color-#{$fromColor}-#{$toColor} {
+			from {
+				color: $fromColor;
+			}
+
+			to {
+				color: $toColor;
+			}
+		}
+	}
 
 	.color1 {
 		color: $color1;
