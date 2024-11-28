@@ -37,7 +37,7 @@ function App() {
   if (gameOver) setTimeout(() => { setDisplayHighScore(true) }, 2000)
 
   return (
-    <div className="center">
+   <div className="center">
       {<MusicLoop music={"gameover"} mute={gameOver ? mute : true} />}
       <MusicLoop music={"theme"} mute={gameOver ? true : mute} />
       {displayHighScore ?
