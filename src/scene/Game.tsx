@@ -29,7 +29,7 @@ export default function Game(props: GameProps): JSX.Element {
 
 	const { heightGame, widthGame, map, speed } = props;
 	const [moveMap, blockHit, setKeyPressed, setStop] = useGameMovement(map.level, 15, speed);
-	const [score, gameOver] = useGameState(blockHit, moveMap, map.numberGoal, 3);
+	const [score, gameOver] = useGameState(blockHit, moveMap, map.numberGoal, 0.8);
 
 	// Stop Game Mouvement if GameOver
 	useEffect(() => {
